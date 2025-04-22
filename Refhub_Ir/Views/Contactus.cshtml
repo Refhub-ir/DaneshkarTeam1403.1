@@ -1,0 +1,155 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+    ViewBag.Title = "Contactus";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Eduport - Contact Us</title>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Webestica.com">
+    <meta name="description" content="Eduport- LMS, Education and Course Theme">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/assets/images/favicon.ico">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" type="text/css" href="~/assets/vendor/font-awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/vendor/bootstrap-icons/bootstrap-icons.css">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style.css">
+
+    <!-- Dark mode script -->
+    <script>
+        const storedTheme = localStorage.getItem('theme')
+        const getPreferredTheme = () => {
+            if (storedTheme) {
+                return storedTheme
+            }
+            return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'light'
+        }
+
+        const setTheme = function (theme) {
+            if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('data-bs-theme', 'dark')
+            } else {
+                document.documentElement.setAttribute('data-bs-theme', theme)
+            }
+        }
+
+        setTheme(getPreferredTheme())
+
+        window.addEventListener('DOMContentLoaded', () => {
+            var el = document.querySelector('.theme-icon-active');
+            if(el != 'undefined' && el != null) {
+                const showActiveTheme = theme => {
+                const activeThemeIcon = document.querySelector('.theme-icon-active use')
+                const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
+                const svgOfActiveBtn = btnToActive.querySelector('.mode-switch use').getAttribute('href')
+
+                document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+                    element.classList.remove('active')
+                })
+
+                btnToActive.classList.add('active')
+                activeThemeIcon.setAttribute('href', svgOfActiveBtn)
+            }
+
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                if (storedTheme !== 'light' || storedTheme !== 'dark') {
+                    setTheme(getPreferredTheme())
+                }
+            })
+
+            showActiveTheme(getPreferredTheme())
+
+            document.querySelectorAll('[data-bs-theme-value]')
+                .forEach(toggle => {
+                    toggle.addEventListener('click', () => {
+                        const theme = toggle.getAttribute('data-bs-theme-value')
+                        localStorage.setItem('theme', theme)
+                        setTheme(theme)
+                        showActiveTheme(theme)
+                    })
+                })
+            }
+        })
+    </script>
+</head>
+
+<body>
+    <!-- Header START -->
+    <header class="navbar-light navbar-sticky">
+        <!-- Logo Nav START -->
+        <nav class="navbar navbar-expand-xl">
+            <div class="container">
+                <!-- Logo START -->
+                <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                    <img class="light-mode-item navbar-brand-item" src="~/assets/images/logo.svg" alt="logo">
+                    <img class="dark-mode-item navbar-brand-item" src="~/assets/images/logo-light.svg" alt="logo">
+                </a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="pt-5 pb-0" style="background-image:url(/assets/images/element/map.svg); background-position: center left; background-size: cover;">
+            <div class="container">
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                @using (Html.BeginForm("SubmitContact", "Home", FormMethod.Post, new { @class = "contact-form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-4 bg-light-input">
+                        @Html.Label("Name", "Your name *", new { @class = "form-label" })
+                        @Html.TextBox("Name", null, new { @class = "form-control form-control-lg", required = "required" })
+                    </div>
+
+                    <div class="mb-4 bg-light-input">
+                        @Html.Label("Email", "Email address *", new { @class = "form-label" })
+                        @Html.TextBox("Email", null, new { @class = "form-control form-control-lg", type = "email", required = "required" })
+                    </div>
+
+                    <div class="mb-4 bg-light-input">
+                        @Html.Label("Message", "Message *", new { @class = "form-label" })
+                        @Html.TextArea("Message", null, new { @class = "form-control", rows = "4", required = "required" })
+                    </div>
+
+                    <div class="d-grid">
+                        <button class="btn btn-lg btn-primary mb-0" type="submit">Send Message</button>
+                    </div>
+                }
+            </div>
+        </section>
+        <!-- Contact Form END -->
+    </main>
+    <!-- Main Content END -->
+    <!-- Footer START -->
+    <footer class="pt-5 bg-light">
+        <div class="container">
+            <!-- Footer content -->
+            <!-- ... -->
+        </div>
+    </footer>
+    <!-- Footer END -->
+    <!-- Back to top -->
+    <div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+
+    <!-- Bootstrap JS -->
+    <script src="~/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Template Functions -->
+    <script src="~/assets/js/functions.js"></script>
+</body>
+</html>
