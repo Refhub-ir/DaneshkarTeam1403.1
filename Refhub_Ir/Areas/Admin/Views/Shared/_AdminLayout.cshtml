@@ -28,8 +28,9 @@
         <!-- Partial For Admin Layout-->
         @Html.Partial("~/Areas/Admin/Views/Shared/Header/Header.cshtml")
         @Html.Partial("~/Areas/Admin/Views/Shared/Sidebar/Sidebar.cshtml")
-        @Html.Partial("~/Areas/Admin/Views/Shared/Footer/Footer.cshtml")
 
+        @RenderBody()
+        @Html.Partial("~/Areas/Admin/Views/Shared/Footer/Footer.cshtml")
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
