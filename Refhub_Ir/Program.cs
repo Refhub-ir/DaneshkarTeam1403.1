@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Refhub_Ir.Data;
+
 namespace Refhub_Ir
 {
     public class Program
@@ -8,6 +11,11 @@ namespace Refhub_Ir
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            #region  Add EFCore Configuration
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            #endregion
 
             var app = builder.Build();
 
