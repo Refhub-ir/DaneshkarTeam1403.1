@@ -4,77 +4,31 @@
 <head>
     <title>اینجا رفهاب</title>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="">
-    <meta name="description" content="Eduport - قالب HTML دوره آنلاین و آموزش">
+<partial name="PartialViews/_Meta" />
 
-    <script>
-        const storedTheme = localStorage.getItem('theme')
-        const getPreferredTheme = () => storedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        const setTheme = (theme) => {
-            if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.documentElement.setAttribute('data-bs-theme', 'dark')
-            } else {
-                document.documentElement.setAttribute('data-bs-theme', theme)
-            }
-        }
-        setTheme(getPreferredTheme())
-        window.addEventListener('DOMContentLoaded', () => {
-            const el = document.querySelector('.theme-icon-active');
-            if (el) {
-                const showActiveTheme = (theme) => {
-                    const activeThemeIcon = document.querySelector('.theme-icon-active use')
-                    const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
-                    const svgOfActiveBtn = btnToActive.querySelector('.mode-switch use').getAttribute('href')
-                    document.querySelectorAll('[data-bs-theme-value]').forEach(e => e.classList.remove('active'))
-                    btnToActive.classList.add('active')
-                    activeThemeIcon.setAttribute('href', svgOfActiveBtn)
-                }
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-                    if (storedTheme !== 'light' && storedTheme !== 'dark') setTheme(getPreferredTheme())
-                })
-                showActiveTheme(getPreferredTheme())
-                document.querySelectorAll('[data-bs-theme-value]').forEach(toggle => {
-                    toggle.addEventListener('click', () => {
-                        const theme = toggle.getAttribute('data-bs-theme-value')
-                        localStorage.setItem('theme', theme)
-                        setTheme(theme)
-                        showActiveTheme(theme)
-                    })
-                })
-            }
-        })
-    </script>
+    <partial name="PartialViews/Scripts" />
 
-    <link rel="shortcut icon" href="~/assets/images/favicon.ico">
-    <link rel="stylesheet" href="~/assets/vendor/font-awesome/css/all.min.css">
-    <link rel="stylesheet" href="~/assets/vendor/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="~/assets/vendor/tiny-slider/tiny-slider.css">
-    <link rel="stylesheet" href="~/assets/vendor/glightbox/css/glightbox.css">
-    <link rel="stylesheet" href="~/assets/css/style-rtl.css">
+    <partial name="PartialViews/stylesheet" />
 
     @RenderSection("HeadScripts", required: false)
 </head>
 
 <body>
-    @Html.Partial("PartialViews/_Header")
+    @* @Html.Partial("PartialViews/_Header") *@
+    <partial name="PartialViews/_Header" />
 
     <main>
         @RenderBody()
     </main>
 
-    @Html.Partial("PartialViews/_Footer")
+    @* @Html.Partial("PartialViews/_Footer") *@
+    <partial name="PartialViews/_Footer" />
 
     <div class="back-top">
         <i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i>
     </div>
 
-    <script src="~/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/assets/vendor/tiny-slider/tiny-slider-rtl.js"></script>
-    <script src="~/assets/vendor/glightbox/js/glightbox.js"></script>
-    <script src="~/assets/vendor/purecounterjs/dist/purecounter_vanilla.js"></script>
-    <script src="~/assets/js/functions.js"></script>
+    <partial name="PartialViews/Scripts" />
 
     @RenderSection("Scripts", required: false)
 </body>
