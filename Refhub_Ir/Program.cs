@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Refhub_Ir.Data;
+using Refhub_Ir.Data.Context;
 
 namespace Refhub_Ir
 {
