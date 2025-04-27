@@ -26,6 +26,7 @@ namespace Refhub_Ir.Data
             modelBuilder.ApplyConfiguration(new KeywordConfiguration());
             modelBuilder.ApplyConfiguration(new BookConfiguration());
             modelBuilder.ApplyConfiguration(new BookKeywordConfiguration());
+            modelBuilder.ApplyConfiguration(new BookRelationConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
