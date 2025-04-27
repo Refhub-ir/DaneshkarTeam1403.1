@@ -1,4 +1,4 @@
-﻿namespace Refhub_Ir.Models.Entities
+﻿namespace Refhub_Ir.Models
 {
     public class Category
     {
