@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Refhub_Ir.Mapping;
 using Refhub_Ir.Models;
 
-namespace Refhub_Ir.Data
+namespace Refhub_Ir.Data.Context
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<Category> Categories{ get; set; }
-        public DbSet<Author> Authors{ get; set; }
-        public DbSet<Book> Books{ get; set; }
-        public DbSet<Keyword> Keywords{ get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Keyword> Keywords { get; set; }
         public DbSet<BookAuthor> BookAuthors { get; set; }
         public DbSet<BookKeyword> BookKeywords { get; set; }
         public DbSet<BookRelation> BookRelations { get; set; }
