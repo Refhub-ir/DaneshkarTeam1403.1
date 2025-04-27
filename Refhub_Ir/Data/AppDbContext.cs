@@ -22,6 +22,7 @@ namespace Refhub_Ir.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new AuthorConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
