@@ -26,11 +26,11 @@
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         <!-- Partial For Admin Layout-->
-        @Html.Partial("~/Areas/Admin/Views/Shared/Header/Header.cshtml")
-        @Html.Partial("~/Areas/Admin/Views/Shared/Sidebar/Sidebar.cshtml")
+        @Html.Partial("./Partials/Header.cshtml")
+        @Html.Partial("./Partials/Sidebar.cshtml")
 
         @RenderBody()
-        @Html.Partial("~/Areas/Admin/Views/Shared/Footer/Footer.cshtml")
+        @Html.Partial("./Partials/Footer.cshtml")
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
@@ -40,6 +40,6 @@
     </div>
     <!-- ./wrapper -->
     <!-- jQuery -->
-    @Html.Partial("~/Areas/Admin/Views/Shared/Script/Script.cshtml")
+    @Html.Partial("./Partials/Script.cshtml")
 </body>
 </html>
