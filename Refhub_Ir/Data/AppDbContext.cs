@@ -23,6 +23,7 @@ namespace Refhub_Ir.Data
         {
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new AuthorConfiguration());
+            modelBuilder.ApplyConfiguration(new KeywordConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
