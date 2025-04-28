@@ -22,7 +22,7 @@ namespace Refhub_Ir
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
-                options.Password.RequireDigit = false;
+                options.Password.RequireDigit =true;
                 options.Password.RequiredLength = 6;
             })
                 .AddEntityFrameworkStores<AppDbContext>()
@@ -32,7 +32,7 @@ namespace Refhub_Ir
             builder.Services.ConfigureApplicationCookie(options => {
                 options.LoginPath = "/Account/Login";
                 options.AccessDeniedPath = "/Account/AccessDenied";
-                options.Cookie.Name = "YourApp.AuthCookie";
+                options.Cookie.Name = "RefHub.AuthCookie";
             });
             #endregion
             var app = builder.Build();
