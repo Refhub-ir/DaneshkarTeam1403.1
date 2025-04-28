@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Refhub_Ir.Data.Context;
-using Refhub_Ir.Data.Models.User;
+using Refhub_Ir.Data.Models;
 
 namespace Refhub_Ir
 {

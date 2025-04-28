@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Refhub_Ir.Data.Models.User;
+using Refhub_Ir.Data.Models;
 using Refhub_Ir.Models.DTO.User;
 
 namespace Refhub_Ir.Controllers
