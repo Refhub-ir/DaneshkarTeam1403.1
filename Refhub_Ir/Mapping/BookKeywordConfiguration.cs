@@ -8,6 +8,8 @@ namespace Refhub_Ir.Mapping
     {
         public void Configure(EntityTypeBuilder<BookKeyword> builder)
         {
+            builder.HasKey(bk => new { bk.BookId, bk.KeywordId });
+
             builder.HasOne(bk => bk.Book).WithMany(b => b.BookKeywords)
                 .HasForeignKey(bk => bk.BookId);
 
