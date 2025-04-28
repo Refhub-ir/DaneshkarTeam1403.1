@@ -64,7 +64,7 @@ namespace Refhub_Ir.Controllers
                 if (result.Succeeded)
                     return RedirectToAction("Index", "Home");
 
-                ModelState.AddModelError("", "Invalid login attempt.");
+                ModelState.AddModelError("", "تلاش برای ورود نامعتبر است.");
             }
             return View(model);
         }
