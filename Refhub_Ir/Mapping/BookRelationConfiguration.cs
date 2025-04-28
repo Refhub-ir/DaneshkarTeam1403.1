@@ -8,6 +8,8 @@ namespace Refhub_Ir.Mapping
     {
         public void Configure(EntityTypeBuilder<BookRelation> builder)
         {
+            builder.HasKey(rb => new { rb.BookId, rb.RelatedBookId });
+
             builder.HasOne(br=>br.Book).WithMany(b=>b.RelatedTo)
                 .HasForeignKey(b=>b.BookId)
                 .OnDelete(DeleteBehavior.Restrict);
