@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Refhub_Ir.Data.Configuration;
-
+using Refhub_Ir.Data.Models.User;
 using Refhub_Ir.Models;
 
 namespace Refhub_Ir.Data.Context
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Category> Categories { get; set; }
         public DbSet<Author> Authors { get; set; }
