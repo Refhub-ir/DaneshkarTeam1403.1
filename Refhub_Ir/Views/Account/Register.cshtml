@@ -13,6 +13,7 @@
 
             <!-- Form START -->
             <form asp-action="Register" method="post">
+                @Html.AntiForgeryToken()
                 <!-- Email -->
                 <div class="mb-4">
                     <label asp-for="Email" class="form-label">ایمیل</label>

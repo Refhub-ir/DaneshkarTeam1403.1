@@ -19,6 +19,7 @@ namespace Refhub_Ir.Controllers
         [HttpGet]
         public IActionResult Register() => View();
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -55,6 +56,7 @@ namespace Refhub_Ir.Controllers
         public IActionResult Login() => View();
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -72,6 +74,7 @@ namespace Refhub_Ir.Controllers
 
         #region Logout
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
