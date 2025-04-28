@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Refhub_Ir.Models.Entities;
+using Refhub_Ir.Models;
 
-namespace Refhub_Ir.Mapping
+namespace Refhub_Ir.Data.Configuration
 {
     public class BookConfiguration : IEntityTypeConfiguration<Book>
     {

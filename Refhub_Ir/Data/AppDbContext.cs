@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Refhub_Ir.Mapping;
-using Refhub_Ir.Models.Entities;
+using Refhub_Ir.Models;
 
 namespace Refhub_Ir.Data
 {
