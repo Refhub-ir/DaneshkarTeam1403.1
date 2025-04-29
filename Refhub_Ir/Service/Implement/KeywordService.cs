@@ -1,4 +1,5 @@
-﻿using Refhub_Ir.Data.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Refhub_Ir.Data.Context;
 using Refhub_Ir.Models;
 using Refhub_Ir.Models.DTO.Keyword;
 using Refhub_Ir.Service.Interface;
@@ -25,9 +26,14 @@ namespace Refhub_Ir.Service.Implement
             _Context.SaveChanges();
         }
 
-        //public Task<List<Keyword>> GetAllKeywordforListAsync()
-        //{
-        //    _Context.
-        //}
+        public Task<List<KeywordListVM>> GetAllKeywordforListAsync()
+        {
+            return _Context.Keywords.Select(x => new KeywordListVM 
+            {
+                Id = x.Id,
+                Word = x.Word,
+
+            }).ToListAsync();
+        }
     }
 }

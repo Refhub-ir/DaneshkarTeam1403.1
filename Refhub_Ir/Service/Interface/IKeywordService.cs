@@ -8,7 +8,7 @@ namespace Refhub_Ir.Service.Interface
    
     public interface IKeywordService
     {
-        Task<List<Keyword>> GetAllKeywordforListAsync();
+        Task<List<KeywordListVM>> GetAllKeywordforListAsync();
         Task AddKeywordAsync(CreateKeywordVM model);
     }
 }
