@@ -14,15 +14,15 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             _keywordService = keywordService;
         }
 
-        public IActionResult ListKeyword()
+        public async Task<IActionResult> ListKeyword()
         {
-            return View();
+            var keywords = await _keywordService.GetAllKeywordForListAsync();
+            return View(keywords);
         }
 
         [HttpGet]
         public async Task<IActionResult> CreateKeyword()
-        {
-            var keywords = await _keywordService.GetAllKeywordForListAsync();
+        {          
             return View();
         }
 
