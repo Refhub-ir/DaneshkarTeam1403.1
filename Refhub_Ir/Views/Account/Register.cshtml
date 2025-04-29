@@ -1,0 +1,85 @@
+﻿@model Refhub_Ir.Models.DTO.User.RegisterViewModel
+@{
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+    ViewData["Title"] = "ثبت نام";
+}
+<div class="col-12 col-lg-6 m-auto">
+    <div class="row my-5">
+        <div class="col-sm-10 col-xl-8 m-auto">
+            <!-- Title -->
+            <img src="~/assets/images/element/03.svg" class="h-40px mb-2" alt="">
+            <h2 class="">ثبت نام</h2>
+            <p class="mb-4">از دیدن شما خوشحالم! لطفا با حساب کاربری خود ثبت نام کنید.</p>
+
+            <!-- Form START -->
+            <form asp-action="Register" method="post">
+                @Html.AntiForgeryToken()
+                <!-- Email -->
+                <div class="mb-4">
+                    <label asp-for="Email" class="form-label">ایمیل</label>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="bi bi-envelope-fill"></i></span>
+                        <input asp-for="Email" type="email" class="form-control border-0 bg-light rounded-end ps-1" placeholder="***@@gmail.com" id="Email">
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <!-- Password -->
+                <div class="mb-4">
+                    <label asp-for="Password" class="form-label">رمز عبور *</label>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="fas fa-lock"></i></span>
+                        <input asp-for="Password" type="password" class="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="Password5">
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <!-- Confirm Password -->
+                <div class="mb-4">
+                    <label asp-for="ConfirmPassword" class="form-label">تایید رمز عبور *</label>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="fas fa-lock"></i></span>
+                        <input asp-for="ConfirmPassword" type="password" class="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="ConfirmPassword">
+                    </div>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <!-- Check box -->
+                <div class="mb-4">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="checkbox-1">
+                        <label class="form-check-label" for="checkbox-1">با ثبت نام <a href="#">شرایط و قوانین سایت</a> را خواهید پذیرفت.</label>
+                    </div>
+                </div>
+                <!-- Button -->
+                <div class="align-items-center mt-0">
+                    <div class="d-grid">
+                        <button class="btn btn-primary mb-0" type="submit">ثبت نام</button>
+                    </div>
+                </div>
+            </form>
+            @section Scripts {
+                <partial name="_ValidationScriptsPartial" />
+            }
+            <!-- Form END -->
+            <!-- Social buttons -->
+            <div class="row">
+                <!-- Divider with text -->
+                <div class="position-relative my-4">
+                    <hr>
+                    <p class="small position-absolute top-50 start-50 translate-middle bg-body px-5">یا</p>
+                </div>
+                <!-- Social btn -->
+                <div class="col-xxl-6 d-grid">
+                    <a href="#" class="btn bg-google mb-2 mb-xxl-0"><i class="fab fa-fw fa-google text-white me-2"></i>با Google</a>
+                </div>
+                <!-- Social btn -->
+                <div class="col-xxl-6 d-grid">
+                    <a href="#" class="btn bg-facebook mb-0"><i class="fab fa-fw fa-facebook-f me-2"></i>با Facebook</a>
+                </div>
+            </div>
+
+            <!-- Sign up link -->
+            <div class="mt-4 text-center">
+                <span>آیا قبلا ثبت نام کرده اید؟<a asp-controller="Account" asp-action="Login"> ورود</a></span>
+            </div>
+        </div>
+    </div>
+</div>
