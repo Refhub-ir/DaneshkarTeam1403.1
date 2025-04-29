@@ -1,4 +1,5 @@
-﻿using Refhub_Ir.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Refhub_Ir.Models;
 
 namespace Refhub_Ir.Service.Interface
 {
@@ -8,6 +9,7 @@ namespace Refhub_Ir.Service.Interface
         Task<Author> GetBySlugAsync(string slug);
         Task AddAsync(Author author);
         Task UpdateAsync(Author author);
-        Task DeleteAsync(int id);
+        Task DeleteAsync(string  slug);
+        Task<bool> SlugExistsAsync(string slug,  string?  excludeSlug = null);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Refhub_Ir.Areas.Admin.DTOs
 {
-    public class authorDTO
+    public class AuthorDTO
     {
         [Required(ErrorMessage = "نام کامل الزامی است")]
         public string FullName { get; set; }

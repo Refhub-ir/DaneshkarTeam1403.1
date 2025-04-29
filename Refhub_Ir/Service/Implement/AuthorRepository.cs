@@ -37,14 +37,22 @@ namespace Refhub_Ir.Service.Implement
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(string slug)
         {
-            var author = await GetByIdAsync(id);
+            var author =await GetBySlugAsync(slug);
             if (author != null)
             {
                 _context.Authors.Remove(author);
                 await _context.SaveChangesAsync();
             }
+        }
+        public async Task<bool> SlugExistsAsync(string slug, string excludeSlug = null)
+        {
+            if (!string.IsNullOrEmpty(excludeSlug))
+            {
+                return await _context.Authors.AnyAsync(a => a.Slug == slug && a.Slug != excludeSlug);
+            }
+            return await _context.Authors.AnyAsync(a => a.Slug == slug);
         }
     }
 }
