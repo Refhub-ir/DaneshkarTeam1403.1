@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Refhub_Ir.Models.Keyword
+namespace Refhub_Ir.Models.DTO.Keyword
 {
     public class CreateKeywordVM
     {
