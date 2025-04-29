@@ -24,5 +24,10 @@ namespace Refhub_Ir.Service.Implement
             _Context.Keywords.Add(keyword);
             _Context.SaveChanges();
         }
+
+        //public Task<List<Keyword>> GetAllKeywordforListAsync()
+        //{
+        //    _Context.
+        //}
     }
 }
