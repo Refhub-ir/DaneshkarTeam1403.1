@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Refhub_Ir.Data.Context;
 using Refhub_Ir.Data.Models;
+using Refhub_Ir.Service.Implement;
+using Refhub_Ir.Service.Interface;
 
 namespace Refhub_Ir
 {
@@ -13,6 +15,12 @@ namespace Refhub_Ir
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            #region Add Service
+
+            builder.Services.AddScoped<IKeywordService, KeywordService>();
+            #endregion
+
 
             #region  Add EFCore Configuration
             builder.Services.AddDbContext<AppDbContext>(options =>

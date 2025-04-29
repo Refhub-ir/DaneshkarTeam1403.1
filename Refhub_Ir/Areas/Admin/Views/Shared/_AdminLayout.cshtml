@@ -29,7 +29,10 @@
         @Html.Partial("./Partials/Header.cshtml")
         @Html.Partial("./Partials/Sidebar.cshtml")
 
-        @RenderBody()
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+
         @Html.Partial("./Partials/Footer.cshtml")
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
