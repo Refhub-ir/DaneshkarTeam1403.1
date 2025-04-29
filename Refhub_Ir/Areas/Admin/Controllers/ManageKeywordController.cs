@@ -22,7 +22,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateKeyword()
         {
-
+            var keywords = await _keywordService.GetAllKeywordForListAsync();
             return View();
         }
 

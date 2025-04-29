@@ -26,7 +26,7 @@ namespace Refhub_Ir.Service.Implement
             _Context.SaveChanges();
         }
 
-        public Task<List<KeywordListVM>> GetAllKeywordforListAsync()
+        public Task<List<KeywordListVM>> GetAllKeywordForListAsync()
         {
             return _Context.Keywords.Select(x => new KeywordListVM 
             {
