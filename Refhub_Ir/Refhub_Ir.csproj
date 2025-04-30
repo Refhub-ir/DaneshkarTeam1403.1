@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\User\Models\" />
-    <Folder Include="wwwroot\Files\" />
+    <Folder Include="wwwroot\Files\Images\Books\" />
   </ItemGroup>
 
   <ItemGroup>
