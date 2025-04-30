@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Refhub_Ir.Data.Context;
 using Refhub_Ir.Data.Models;
+using Refhub_Ir.Service.Implement;
+using Refhub_Ir.Service.Interface;
+using Refhub_Ir.Tools.ExtentionMethod;
 
 namespace Refhub_Ir
 {
@@ -13,7 +16,7 @@ namespace Refhub_Ir
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddCustomService();
             #region  Add EFCore Configuration
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -53,19 +56,16 @@ namespace Refhub_Ir
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                  name: "areas",
-                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
-            });
+         
 
             app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                name: "areas",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+            );
 
-
+            app.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             app.Run();
         }
     }

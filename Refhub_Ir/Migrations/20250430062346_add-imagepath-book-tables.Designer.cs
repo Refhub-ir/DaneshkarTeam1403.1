@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Refhub_Ir.Data.Context;
 
@@ -11,9 +12,11 @@ using Refhub_Ir.Data.Context;
 namespace Refhub_Ir.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250430062346_add-imagepath-book-tables")]
+    partial class addimagepathbooktables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -273,14 +276,9 @@ namespace Refhub_Ir.Migrations
                         .HasMaxLength(155)
                         .HasColumnType("nvarchar(155)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Books");
                 });
@@ -433,13 +431,7 @@ namespace Refhub_Ir.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Refhub_Ir.Data.Models.ApplicationUser", "User")
-                        .WithMany("Books")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Category");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Refhub_Ir.Models.BookAuthor", b =>
@@ -497,11 +489,6 @@ namespace Refhub_Ir.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("RelatedBook");
-                });
-
-            modelBuilder.Entity("Refhub_Ir.Data.Models.ApplicationUser", b =>
-                {
-                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("Refhub_Ir.Models.Author", b =>

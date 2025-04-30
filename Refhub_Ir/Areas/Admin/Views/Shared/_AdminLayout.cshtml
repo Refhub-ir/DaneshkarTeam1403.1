@@ -21,15 +21,40 @@
     <link rel="stylesheet" href="/Admin/dist/css/bootstrap-rtl.min.css">
     <!-- template rtl version -->
     <link rel="stylesheet" href="/Admin/dist/css/custom-style.css">
-
+    @RenderSection("Links",false)
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         <!-- Partial For Admin Layout-->
         @Html.Partial("./Partials/Header.cshtml")
         @Html.Partial("./Partials/Sidebar.cshtml")
+        
+        
+        
+        <div class="content-wrapper" style="min-height: 680px;">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>@ViewBag.TitleHeaderPage </h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-left">
+                                <li class="breadcrumb-item"><a href="#">خانه</a></li>
+                                <li class="breadcrumb-item active">@ViewBag.TitleHeaderPage</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
 
+        <!-- Main content -->
         @RenderBody()
+   
+            <!-- /.content -->
+        </div>
+      
         @Html.Partial("./Partials/Footer.cshtml")
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -41,5 +66,6 @@
     <!-- ./wrapper -->
     <!-- jQuery -->
     @Html.Partial("./Partials/Script.cshtml")
+    @RenderSection("Scripts", false)
 </body>
 </html>
