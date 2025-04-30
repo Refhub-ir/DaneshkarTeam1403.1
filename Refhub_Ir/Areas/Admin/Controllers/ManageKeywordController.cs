@@ -36,13 +36,26 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             return RedirectToAction("ListKeyword");
         }
 
-        // نمایش فرم ویرایش
+    
         [HttpGet]
         public async Task<IActionResult> EditKeyword(int id)
         {
             var vm = await _keywordService.GetForEdit(id);
             if (vm == null) return NotFound();
             return View(vm);
+        }
+
+     
+        [HttpPost]
+        public async Task<IActionResult> EditKeyword(EditKeywordVM vm)
+        {
+            if (!ModelState.IsValid) 
+            {
+                return View(vm);
+            } 
+
+            await _keywordService.UpdateAsync(vm);
+            return RedirectToAction("ListKeyword");
         }
     }
 }
