@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\User\Models\" />
+    <Folder Include="wwwroot\Files\" />
   </ItemGroup>
 
   <ItemGroup>
