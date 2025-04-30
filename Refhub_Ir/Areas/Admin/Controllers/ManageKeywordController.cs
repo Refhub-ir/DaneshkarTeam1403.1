@@ -57,5 +57,11 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             await _keywordService.UpdateAsync(vm);
             return RedirectToAction("ListKeyword");
         }
+
+        public async Task<IActionResult> DeleteKeyword(int id)
+        {
+            await _keywordService.DeleteAsync(id);
+            return RedirectToAction("ListKeyword");
+        }
     }
 }
