@@ -8,6 +8,7 @@
         public string Slug { get; set; }
         public int PageCount { get; set; }
         public string FilePath { get; set; }
+        public string ImagePath { get; set; }
 
         // Foreign Key
         public int CategoryId { get; set; }
