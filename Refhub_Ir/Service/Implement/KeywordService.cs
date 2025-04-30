@@ -26,6 +26,11 @@ namespace Refhub_Ir.Service.Implement
             _Context.SaveChanges();
         }
 
+        public Task DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<List<KeywordListVM>> GetAllKeywordForListAsync()
         {
             return _Context.Keywords.Select(x => new KeywordListVM 
@@ -34,6 +39,25 @@ namespace Refhub_Ir.Service.Implement
                 Word = x.Word,
 
             }).ToListAsync();
+        }
+
+        public async Task<EditKeywordVM> GetForEdit(int id)
+        {
+            var keyword = _Context.Keywords.Find(id);
+            if (keyword == null) return null;
+
+            var model = new EditKeywordVM
+            {
+                Id = keyword.Id,
+                Word = keyword.Word
+            };
+
+            return model;
+        }
+
+        public Task UpdateAsync(EditKeywordVM vm)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -10,5 +10,8 @@ namespace Refhub_Ir.Service.Interface
     {
         Task<List<KeywordListVM>> GetAllKeywordForListAsync();
         Task AddKeywordAsync(CreateKeywordVM model);
+       Task<EditKeywordVM> GetForEdit(int id);
+        Task UpdateAsync(EditKeywordVM vm);
+        Task DeleteAsync(int id);
     }
 }

@@ -35,5 +35,14 @@ namespace Refhub_Ir.Areas.Admin.Controllers
           await  _keywordService.AddKeywordAsync(model);
             return RedirectToAction("ListKeyword");
         }
+
+        // نمایش فرم ویرایش
+        [HttpGet]
+        public IActionResult EditKeyword(int id)
+        {
+            var vm = _keywordService.GetForEdit(id);
+            if (vm == null) return NotFound();
+            return View(vm);
+        }
     }
 }

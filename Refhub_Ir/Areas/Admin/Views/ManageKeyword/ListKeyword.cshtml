@@ -40,7 +40,7 @@
                                 <td>@(i + 1)</td>
                                 <td>@Model[i].Word</td>
                                 <td>
-                                    <a asp-action="EditKeyword" asp-route-id="@Model[i].Id" class="btn btn-sm btn-warning">ویرایش</a>
+                                    <a asp-area="Admin" asp-controller="ManageKeyword" asp-action="EditKeyword" asp-route-id="@Model[i].Id" class="btn btn-sm btn-warning">ویرایش</a>
                                     <a asp-action="DeleteKeyword" asp-route-id="@Model[i].Id" class="btn btn-sm btn-danger" onclick="return confirm('آیا مطمئن هستید که می‌خواهید حذف کنید؟');">حذف</a>
 
                                 </td>
