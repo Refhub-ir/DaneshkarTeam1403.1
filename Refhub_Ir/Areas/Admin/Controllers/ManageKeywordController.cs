@@ -33,7 +33,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
                 return View(model);
 
           await  _keywordService.AddKeywordAsync(model);
-            return RedirectToAction("List");
+            return RedirectToAction("ListKeyword");
         }
     }
 }

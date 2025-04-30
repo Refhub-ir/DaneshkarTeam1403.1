@@ -21,18 +21,16 @@
             <div class="card-header">
                 <h3 class="card-title">جدول کلیدواژه‌ها</h3>
             </div>
-
             <div class="card-footer clearfix">
                 <a asp-action="CreateKeyword" class="btn btn-primary">افزودن کلیدواژه جدید</a>
             </div>
-
             <div class="card-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered table-sm align-middle">
                     <thead>
                         <tr>
-                            <th style="width: 10px">#</th>
+                            <th>#</th>
                             <th>کلمه کلیدی</th>
-                            <th style="width: 150px">عملیات</th>
+                            <th>عملیات</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,22 +40,29 @@
                                 <td>@(i + 1)</td>
                                 <td>@Model[i].Word</td>
                                 <td>
-                                    <a asp-action="EditKeyword"
-                                       asp-route-id="@Model[i].Id"
-                                       class="btn btn-sm btn-warning">ویرایش</a>
+                                    <a asp-action="EditKeyword" asp-route-id="@Model[i].Id" class="btn btn-sm btn-warning">ویرایش</a>
+                                    <a asp-action="DeleteKeyword" asp-route-id="@Model[i].Id" class="btn btn-sm btn-danger" onclick="return confirm('آیا مطمئن هستید که می‌خواهید حذف کنید؟');">حذف</a>
 
-                                    <a asp-action="DeleteKeyword"
-                                       asp-route-id="@Model[i].Id"
-                                       class="btn btn-sm btn-danger"
-                                       onclick="return confirm('آیا مطمئن هستید که می‌خواهید حذف کنید؟');">حذف</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
             </div>
-
-          
+            <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                    <li class="page-item"><a class="page-link" href="#">«</a></li>
+                    <li class="page-item"><a class="page-link" href="#">۱</a></li>
+                    <li class="page-item"><a class="page-link" href="#">۲</a></li>
+                    <li class="page-item"><a class="page-link" href="#">۳</a></li>
+                    <li class="page-item"><a class="page-link" href="#">»</a></li>
+                </ul>
+            </div>
+         
         </div>
     </div>
 </section>
+
+
+
+
