@@ -4,11 +4,15 @@ namespace Refhub_Ir.Service.Interface
 {
     public interface IBookService
     {
-        Task<ICollection<BookVM>> GetBooks();
-        Task<ICollection<BookVM>> GetBook(int Id);
+        Task<IEnumerable<CategoryDropDownVM>> GetCategories(int Id);
+        Task<IEnumerable<CategoryDropDownVM>> GetAnothers(List<int> Id);
+        Task<bool> CreateAnother(string fullname,string slug);
+        Task<IEnumerable<BookVM>> GetBooks(string searchText="");
+        Task<UpdateBookVM> GetBookDetialsForUpdate(int Id);
+        Task<IEnumerable<BookVM>> GetBook(int Id);
         Task<bool>CreateBook(CreateBookVM book);
         Task<bool>UpdateBook(UpdateBookVM book);
-        Task<bool>Delete(int Id);
+        Task<bool> DeleteBook(int Id);
 
     }
 }
