@@ -15,7 +15,7 @@ namespace Refhub_Ir.Models
         // Foreign Key
         public int CategoryId { get; set; }
 
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
 
         // Navigation Properties
         // Preventing NullReferenceException by initializing collections.
