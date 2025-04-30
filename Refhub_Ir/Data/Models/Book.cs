@@ -1,4 +1,6 @@
-﻿namespace Refhub_Ir.Models
+﻿using Refhub_Ir.Data.Models;
+
+namespace Refhub_Ir.Models
 {
     public class Book
     {
@@ -13,9 +15,12 @@
         // Foreign Key
         public int CategoryId { get; set; }
 
+        public string UserId { get; set; }
+
         // Navigation Properties
         // Preventing NullReferenceException by initializing collections.
         public Category Category { get; set; }
+        public ApplicationUser User { get; set; }
         public List<BookKeyword> BookKeywords { get; set; } = new();
         public List<BookAuthor> BookAuthors { get; set; } = new();
         public List<BookRelation> RelatedTo { get; set; } = new();
