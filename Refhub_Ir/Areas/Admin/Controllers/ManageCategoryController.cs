@@ -36,7 +36,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Update(int id)
         {
             var category = await _categoryService.GetCategoryByIdAsync(id);
             if (category == null) return NotFound();
@@ -52,7 +52,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UpdateCategoryVM model)
+        public async Task<IActionResult> Update(UpdateCategoryVM model)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +67,13 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             var category = await _categoryService.GetCategoryByIdAsync(id);
             if (category == null) return NotFound();
 
-            return View(category);
+            var model = new DeleteCategoryVM
+            {
+                Id = category.Id,
+                Name = category.Name
+            };
+
+            return View(model);
         }
 
         [HttpPost, ActionName("Delete")]
