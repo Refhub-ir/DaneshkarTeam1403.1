@@ -1,17 +1,25 @@
-﻿namespace Refhub_Ir.Models.Books
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Refhub_Ir.Models.Books
 {
     public class CreateBookVM
     {
-       
 
+        [Required(ErrorMessage = "عنوان کتاب را وارد کنید")]
         public string Title { get; set; }
+        [Required(ErrorMessage = "عنوان در مرورگر را وارد کنید")]
         public string Slug { get; set; }
+        [Required(ErrorMessage = "تعداد صفحه را وارد کنید انتخاب کنید")]
         public int PageCount { get; set; }
-        public string FilePath { get; set; }
-        public string ImagePath { get; set; }
+        [Required(ErrorMessage = "یک فایل انتخاب کنید")]
+        public IFormFile File { get; set; }
+        [Required(ErrorMessage = "یک تصویر انتخاب کنید")]
+        public IFormFile Image { get; set; }
 
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
         // Foreign Key
+        [Required(ErrorMessage = "یک دسته بنید انتخاب کنید")]
         public int CategoryId { get; set; }
+        public List<int> AnotherId { get; set; }
     }
 }
