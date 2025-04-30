@@ -1,0 +1,53 @@
+﻿@using Refhub_Ir.Models.Categories
+@model UpdateCategoryVM
+
+@{
+    Layout = "_AdminLayout";
+    ViewBag.TitleHeaderPage = "ویرایش دسته‌بندی";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">ویرایش دسته‌بندی</h3>
+                    </div>
+                    <form asp-area="Admin" asp-controller="ManageCategory" asp-action="Edit" method="post">
+                        <div asp-validation-summary="All" class="text-danger px-5"></div>
+                        <div class="card-body">
+                            <!-- Hidden field for Id -->
+                            <input type="hidden" asp-for="Id" />
+
+                            <!-- Name field -->
+                            <div class="form-group">
+                                <label asp-for="Name">نام دسته‌بندی</label>
+                                <input asp-for="Name" type="text" class="form-control" placeholder="نام دسته‌بندی را وارد کنید">
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+
+                            <!-- Slug field -->
+                            <div class="form-group">
+                                <label asp-for="Slug">Slug</label>
+                                <input asp-for="Slug" type="text" class="form-control" placeholder="Slug را وارد کنید">
+                                <span asp-validation-for="Slug" class="text-danger"></span>
+                            </div>
+
+                            <!-- Description field -->
+                            <div class="form-group">
+                                <label asp-for="Description">توضیحات</label>
+                                <textarea asp-for="Description" class="form-control" placeholder="توضیحات را وارد کنید"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">ذخیره</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<partial name="_ValidationScriptsPartial" />
