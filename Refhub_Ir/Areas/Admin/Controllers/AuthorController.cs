@@ -8,12 +8,14 @@ namespace Refhub_Ir.Areas.Admin.Controllers
     public class AuthorsController : Controller
     {
         private readonly IAuthorService _authorService;
-
+        #region Ctor
         public AuthorsController(IAuthorService authorService)
         {
             _authorService = authorService;
         }
+        #endregion
 
+        #region Authors
         [HttpGet]
         // GET: /Admin/Authors
         public async Task<IActionResult> Authors()
@@ -21,16 +23,20 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             var authors = await _authorService.GetAllAuthorsAsync();
             return View(authors);
         }
+        #endregion
 
-        
+        #region AuthorDetails
+
         // GET: /Admin/Authors/Details/john-doe
-        public async Task<IActionResult> AthourBySlug(string slug)
+        public async Task<IActionResult> Details(string slug)
         {
             var author = await _authorService.GetAuthorBySlugAsync(slug);
             if (author == null) return NotFound();
             return View(author);
         }
+        #endregion
 
+        #region AuthorCreate
         // GET: /Admin/Authors/Create
         public IActionResult Create()
         {
@@ -58,6 +64,9 @@ namespace Refhub_Ir.Areas.Admin.Controllers
                 return View(authorDTO);
             }
         }
+        #endregion
+
+        #region AuthorEdit
         [HttpGet]
         // GET: /Admin/Authors/Edit/john-doe
         public async Task<IActionResult> Edit(string slug)
@@ -94,7 +103,9 @@ namespace Refhub_Ir.Areas.Admin.Controllers
                 return View(authorDto);
             }
         }
+        #endregion
 
+        #region AuthorDelete
         // GET: /Admin/Authors/Delete/john-doe
         public async Task<IActionResult> Delete(string slug)
         {
@@ -114,5 +125,6 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             await _authorService.DeleteAuthorAsync(author.Slug);
             return RedirectToAction(nameof(Index));
         }
+        #endregion
     }
 }
