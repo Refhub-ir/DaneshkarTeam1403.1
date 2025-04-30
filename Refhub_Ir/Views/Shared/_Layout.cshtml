@@ -1,170 +1,36 @@
-﻿<!DOCTYPE html>
+@* مسیر: Views/Shared/_Layout.cshtml *@
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
-	<title> اینجا رفهاب </title>
+    <title>اینجا رفهاب</title>
 
-	<!-- Meta Tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="author" content="">
-	<meta name="description" content="Eduport - قالب HTML دوره آنلاین و آموزش">
+<partial name="PartialViews/_Meta" />
 
-	<!-- Dark mode -->
-	<script>
-		const storedTheme = localStorage.getItem('theme')
+    <partial name="PartialViews/Scripts" />
 
-		const getPreferredTheme = () => {
-			if (storedTheme) {
-				return storedTheme
-			}
-			return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-		}
+    <partial name="PartialViews/stylesheet" />
 
-		const setTheme = function (theme) {
-			if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-				document.documentElement.setAttribute('data-bs-theme', 'dark')
-			} else {
-				document.documentElement.setAttribute('data-bs-theme', theme)
-			}
-		}
-
-		setTheme(getPreferredTheme())
-
-		window.addEventListener('DOMContentLoaded', () => {
-			var el = document.querySelector('.theme-icon-active');
-			if(el != 'undefined' && el != null) {
-				const showActiveTheme = theme => {
-				const activeThemeIcon = document.querySelector('.theme-icon-active use')
-				const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
-				const svgOfActiveBtn = btnToActive.querySelector('.mode-switch use').getAttribute('href')
-
-				document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
-					element.classList.remove('active')
-				})
-
-				btnToActive.classList.add('active')
-				activeThemeIcon.setAttribute('href', svgOfActiveBtn)
-			}
-
-			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-				if (storedTheme !== 'light' || storedTheme !== 'dark') {
-					setTheme(getPreferredTheme())
-				}
-			})
-
-			showActiveTheme(getPreferredTheme())
-
-			document.querySelectorAll('[data-bs-theme-value]')
-				.forEach(toggle => {
-					toggle.addEventListener('click', () => {
-						const theme = toggle.getAttribute('data-bs-theme-value')
-						localStorage.setItem('theme', theme)
-						setTheme(theme)
-						showActiveTheme(theme)
-					})
-				})
-
-			}
-		})
-
-	</script>
-
-	<!-- Favicon -->
-	<link rel="shortcut icon" href="~/assets/images/favicon.ico">
-
-	<!-- Plugins CSS -->
-	<link rel="stylesheet" type="text/css" href="~/assets/vendor/font-awesome/css/all.min.css">
-	<link rel="stylesheet" type="text/css" href="~/assets/vendor/bootstrap-icons/bootstrap-icons.css">
-	<link rel="stylesheet" type="text/css" href="~/assets/vendor/tiny-slider/tiny-slider.css">
-	<link rel="stylesheet" type="text/css" href="~/assets/vendor/glightbox/css/glightbox.css">
-
-	<!-- Theme CSS -->
-	<link rel="stylesheet" type="text/css" href="~/assets/css/style-rtl.css">
-
+    @RenderSection("HeadScripts", required: false)
 </head>
 
 <body>
+    @* @Html.Partial("PartialViews/_Header") *@
+    <partial name="PartialViews/_Header" />
 
-	<!-- Header START -->
-	<header class="navbar-light navbar-sticky header-static">
-		<!-- Nav START -->
-		<nav class="navbar navbar-expand-xl">
-			<div class="container-fluid px-3 px-xl-5">
-				<!-- Logo START -->
-				<a class="navbar-brand" href="index.html">
-					<img class="light-mode-item navbar-brand-item" src="~/assets/images/logo.svg" alt="logo">
-					<img class="dark-mode-item navbar-brand-item" src="~/assets/images/logo-light.svg" alt="logo">
-				</a>
-				<!-- Logo END -->
-				<!-- Responsive navbar toggler -->
-				<button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-animation">
-						<span></span>
-						<span></span>
-						<span></span>
-					</span>
-				</button>
+    <main>
+        @RenderBody()
+    </main>
 
-				<!-- Main navbar START -->
-				<div class="navbar-collapse w-100 collapse" id="navbarCollapse">
+    @* @Html.Partial("PartialViews/_Footer") *@
+    <partial name="PartialViews/_Footer" />
 
-					<!-- Nav category menu START -->
-					<ul class="navbar-nav navbar-nav-scroll me-auto">
-						<!-- Nav item 1 Demos -->
-						<li class="nav-item dropdown dropdown-menu-shadow-stacked">
-							<a class="nav-link bg-primary bg-opacity-10 rounded-3 text-primary px-3 py-3 py-xl-0" href="#" id="categoryMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-ui-radios-grid me-2"></i><span>دسته بندی</span></a>
-							<ul class="dropdown-menu" aria-labelledby="categoryMenu">
+    <div class="back-top">
+        <i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i>
+    </div>
 
-								<!-- Dropdown submenu -->
-								<li class="dropdown-submenu dropend">
-									<a class="dropdown-item dropdown-toggle" href="#">برنامه نویسی</a>
-									<ul class="dropdown-menu dropdown-menu-start" data-bs-popper="none">
-										<!-- dropdown submenu open right -->
-										<li class="dropdown-submenu dropend">
-											<a class="dropdown-item dropdown-toggle" href="#">طراحی وب</a>
-											<ul class="dropdown-menu" data-bs-popper="none">
-												<li> <a class="dropdown-item" href="#">CSS</a> </li>
-												<li> <a class="dropdown-item" href="#">JavaScript</a> </li>
-												<li> <a class="dropdown-item" href="#">Angular</a> </li>
-												<li> <a class="dropdown-item" href="#">PHP</a> </li>
-												<li> <a class="dropdown-item" href="#">HTML</a> </li>
-												<li> <a class="dropdown-item" href="#">React</a> </li>
-											</ul>
-										</li>
-										<li> <a class="dropdown-item" href="#">بانک های اطلاعاتی</a> </li>
-										<li> <a class="dropdown-item" href="#">برنامه نویسی موبایل</a> </li>
-										<li> <a class="dropdown-item" href="#">برنامه نویسی وب</a> </li>
-										<li> <a class="dropdown-item" href="#">سیستم عامل</a> </li>
-										<li> <a class="dropdown-item" href="#">مهندسی نرم افزار</a> </li>
-										<li> <a class="dropdown-item" href="#">مدیریت پروژه</a> </li>
-									</ul>
-								</li>
-								<li> <a class="dropdown-item" href="#">طراحی وب</a></li>
-								<!-- Dropdown submenu -->
-								<li class="dropdown-submenu dropend">
-									<a class="dropdown-item dropdown-toggle" href="#">دیجیتال مارکتینگ</a>
-									<div class="dropdown-menu dropdown-menu-start dropdown-width-lg" data-bs-popper="none">
-										<div class="row p-4">
-											<!-- Dropdown column item -->
-											<div class="col-xl-6 col-xxl-4 mb-4 mb-xl-0">
-												<h6 class="mb-0">دسته بندی ها</h6>
-												<hr> <!-- Divider -->
-												<ul class="list-unstyled">
-													<li> <a class="dropdown-item" href="#">اینستاگرام مارکتینگ</a> </li>
-													<li> <a class="dropdown-item" href="#">تبلیغ نویسی</a> </li>
-													<li> <a class="dropdown-item" href="#">سرچ کنسول</a> </li>
-													<li> <a class="dropdown-item" href="#">جذب ترافیک موثر</a> </li>
-													<li> <a class="dropdown-item" href="#">افزایش فروش</a> </li>
-													<li> <a class="dropdown-item" href="#">ویدیو مارکتینگ</a> </li>
-													<li> <a class="dropdown-item" href="#">آموزش GTmetrix</a> </li>
-													<li> <a class="dropdown-item" href="#">آموزش Alex</a> </li>
-													<li> <a class="dropdown-item" href="#">استراتژی تولید محتوا</a> </li>
-													<li> <a class="dropdown-item" href="#">سئو و بهینه سازی</a> </li>
-													<li> <a class="dropdown-item" href="#">اصول قرارداد نویسی</a> </li>
-												</ul>
-											</div>
+    <partial name="PartialViews/Scripts" />
 
+<<<<<<< HEAD
 											<!-- Dropdown column item -->
 											<div class="col-xl-6 col-xxl-4 mb-4 mb-xl-0">
 												<h6 class="mb-0">درجه بندی مدرک</h6>
@@ -861,6 +727,8 @@
 
 	<!-- Template Functions -->
 	<script src="~/assets/js/functions.js"></script>
+=======
+    @RenderSection("Scripts", required: false)
+>>>>>>> CRUD_BOOK
 </body>
-
 </html>

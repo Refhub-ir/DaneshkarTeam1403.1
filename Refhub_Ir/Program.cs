@@ -1,3 +1,11 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Refhub_Ir.Data.Context;
+using Refhub_Ir.Data.Models;
+using Refhub_Ir.Service.Implement;
+using Refhub_Ir.Service.Interface;
+using Refhub_Ir.Tools.ExtentionMethod;
+
 namespace Refhub_Ir
 {
     public class Program
@@ -8,7 +16,28 @@ namespace Refhub_Ir
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddCustomService();
+            #region  Add EFCore Configuration
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            #endregion
+            #region Identity Confige
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireDigit =true;
+                options.Password.RequiredLength = 6;
+            })
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
 
+            
+            builder.Services.ConfigureApplicationCookie(options => {
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.Cookie.Name = "RefHub.AuthCookie";
+            });
+            #endregion
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -24,12 +53,19 @@ namespace Refhub_Ir
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+         
 
+            app.MapControllerRoute(
+                name: "areas",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+            );
+
+            app.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             app.Run();
         }
     }
