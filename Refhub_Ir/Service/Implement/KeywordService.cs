@@ -11,7 +11,7 @@ namespace Refhub_Ir.Service.Implement
         private AppDbContext _Context;
         public KeywordService(AppDbContext context)
         {
-                _Context = context;
+            _Context = context;
         }
 
         public async Task AddKeywordAsync(CreateKeywordVM model)
@@ -19,7 +19,7 @@ namespace Refhub_Ir.Service.Implement
             var keyword = new Keyword
             {
                 Word = model.Word,
-                
+
             };
 
             _Context.Keywords.Add(keyword);
@@ -33,7 +33,7 @@ namespace Refhub_Ir.Service.Implement
 
         public Task<List<KeywordListVM>> GetAllKeywordForListAsync()
         {
-            return _Context.Keywords.Select(x => new KeywordListVM 
+            return _Context.Keywords.Select(x => new KeywordListVM
             {
                 Id = x.Id,
                 Word = x.Word,
@@ -55,9 +55,14 @@ namespace Refhub_Ir.Service.Implement
             return model;
         }
 
-        public Task UpdateAsync(EditKeywordVM vm)
+        public async Task UpdateAsync(EditKeywordVM vm)
         {
-            throw new NotImplementedException();
+            var keyword = await _Context.Keywords.FindAsync(vm.Id);
+            if (keyword == null) return;
+
+            keyword.Word = vm.Word;
+            _Context.Update(vm);
+            await _Context.SaveChangesAsync();
         }
     }
 }
