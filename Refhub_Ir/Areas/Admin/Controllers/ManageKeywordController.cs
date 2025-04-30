@@ -38,9 +38,9 @@ namespace Refhub_Ir.Areas.Admin.Controllers
 
         // نمایش فرم ویرایش
         [HttpGet]
-        public IActionResult EditKeyword(int id)
+        public async Task<IActionResult> EditKeyword(int id)
         {
-            var vm = _keywordService.GetForEdit(id);
+            var vm = await _keywordService.GetForEdit(id);
             if (vm == null) return NotFound();
             return View(vm);
         }
