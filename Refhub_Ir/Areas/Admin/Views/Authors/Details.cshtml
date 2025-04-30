@@ -1,5 +1,49 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+@model Refhub_Ir.Areas.Admin.DTOs.AuthorDTO
+
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="card border-primary" style="width: 50rem;">
+        <div class="card-header bg-primary text-white text-center">
+            <h4 class="mb-0">جزییات نویسنده</h4>
+        </div>
+        <div class="card-body">
+
+            @if (Model == null)
+            {
+                <div class="alert alert-danger text-center">
+                    نویسنده‌ای با این اسلاگ پیدا نشد.
+                </div>
+            }
+            else
+            {
+                <table class="table table-bordered text-center">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>فیلد</th>
+                            <th>مقدار</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>نام کامل</td>
+                            <td>@Model.FullName</td>
+                        </tr>
+                        <tr>
+                            <td>اسلاگ</td>
+                            <td>@Model.Slug</td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+
+            <div class="text-center mt-4">
+                <a asp-area="Admin" asp-controller="Authors" asp-action="ListAuthors" class="btn btn-primary">
+                    <i class="fa fa-arrow-left"></i> بازگشت به لیست
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>

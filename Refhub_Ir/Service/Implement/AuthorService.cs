@@ -51,21 +51,22 @@ namespace Refhub_Ir.Service.Implement
             await _authorRepository.AddAsync(author);
         }
 
-        public async Task UpdateAuthorAsync(AuthorDTO authorDto)
+        public async Task UpdateAuthorAsync(AuthorDTO authorDto, string originalSlug)
         {
-            var author = await _authorRepository.GetBySlugAsync(authorDto.Slug);
+            var author = await _authorRepository.GetBySlugAsync(originalSlug);
             if (author == null) throw new Exception("نویسنده پیدا نشد");
 
-            // چک کردن منحصربه‌فرد بودن Slug (به جز برای خود این نویسنده)
-            if (await _authorRepository.SlugExistsAsync(authorDto.Slug))
+            if (authorDto.Slug != originalSlug && await _authorRepository.SlugExistsAsync(authorDto.Slug))
             {
                 throw new Exception("اسلاگ قبلاً استفاده شده است");
             }
 
             author.FullName = authorDto.FullName;
             author.Slug = authorDto.Slug;
+
             await _authorRepository.UpdateAsync(author);
         }
+
 
         public async Task DeleteAuthorAsync(string slug)
         {

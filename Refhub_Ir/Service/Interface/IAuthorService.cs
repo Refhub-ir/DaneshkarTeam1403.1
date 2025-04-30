@@ -7,7 +7,7 @@ namespace Refhub_Ir.Service.Interface
         Task<List<AuthorDTO>> GetAllAuthorsAsync();
         Task<AuthorDTO> GetAuthorBySlugAsync(string slug);
         Task CreateAuthorAsync(AuthorDTO authorDto);
-        Task UpdateAuthorAsync(AuthorDTO authorDto);
+        Task UpdateAuthorAsync(AuthorDTO authorDto, string originalSlug);
         Task DeleteAuthorAsync(string slug);
     }
 }

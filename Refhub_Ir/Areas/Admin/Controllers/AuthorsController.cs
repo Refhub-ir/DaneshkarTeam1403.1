@@ -17,8 +17,8 @@ namespace Refhub_Ir.Areas.Admin.Controllers
 
         #region Authors
         [HttpGet]
-        // GET: /Admin/Authors
-        public async Task<IActionResult> Authors()
+
+        public async Task<IActionResult> ListAuthors()
         {
             var authors = await _authorService.GetAllAuthorsAsync();
             return View(authors);
@@ -28,16 +28,21 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         #region AuthorDetails
 
         // GET: /Admin/Authors/Details/john-doe
+        [HttpGet]
         public async Task<IActionResult> Details(string slug)
         {
             var author = await _authorService.GetAuthorBySlugAsync(slug);
-            if (author == null) return NotFound();
+
+            if (author == null)
+                return View("Details", null);
             return View(author);
         }
+
         #endregion
 
         #region AuthorCreate
         // GET: /Admin/Authors/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -56,7 +61,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             try
             {
                 await _authorService.CreateAuthorAsync(authorDTO);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ListAuthors));
             }
             catch (Exception ex)
             {
@@ -74,39 +79,44 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             var author = await _authorService.GetAuthorBySlugAsync(slug);
             if (author == null) return NotFound();
 
-            var updateDto = new AuthorDTO
+            var dto = new AuthorDTO
             {
                 FullName = author.FullName,
                 Slug = author.Slug
             };
-            return View(updateDto);
+
+            ViewData["OriginalSlug"] = author.Slug;
+            return View(dto);
         }
 
-        // POST: /Admin/Authors/Edit/john-doe
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(AuthorDTO authorDto)
+        public async Task<IActionResult> Edit(AuthorDTO authorDto, string originalSlug)
         {
             if (!ModelState.IsValid)
             {
+                ViewData["OriginalSlug"] = originalSlug;
                 return View(authorDto);
             }
 
             try
             {
-                await _authorService.UpdateAuthorAsync(authorDto);
-                return RedirectToAction(nameof(Index));
+                await _authorService.UpdateAuthorAsync(authorDto, originalSlug);
+                return RedirectToAction(nameof(ListAuthors));
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
+                ViewData["OriginalSlug"] = originalSlug;
                 return View(authorDto);
             }
         }
+
         #endregion
 
         #region AuthorDelete
-        // GET: /Admin/Authors/Delete/john-doe
+        [HttpGet]
         public async Task<IActionResult> Delete(string slug)
         {
             var author = await _authorService.GetAuthorBySlugAsync(slug);
@@ -123,7 +133,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             if (author == null) return NotFound();
 
             await _authorService.DeleteAuthorAsync(author.Slug);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ListAuthors));
         }
         #endregion
     }
