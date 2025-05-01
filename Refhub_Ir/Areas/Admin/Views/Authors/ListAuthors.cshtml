@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "جدول نویسندگان";
+
+}
+@model List<Refhub_Ir.Areas.Admin.DTOs.AuthorDTO>
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h3 class="card-title">جدول نویسندگان</h3>
+
+        <div class="d-flex align-items-center">
+            <a asp-area="Admin" asp-controller="Authors" asp-action="Create" class="btn btn-primary btn-sm mr-3">افزودن نویسنده جدید</a>
+
+            <form asp-area="Admin" asp-controller="Authors" asp-action="Details" method="get" class="input-group input-group-sm" style="width: 200px;">
+                <input type="text" name="slug" class="form-control float-right" placeholder="جستجو بر اساس Slug" />
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card-body table-responsive p-0">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>شماره</th>
+                    <th>نام نویسنده</th>
+                    <th>اسلاگ</th>
+                    <th>تغییرات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int index = 1;
+                }
+                @foreach (var author in Model)
+                {
+                    <tr>
+                        <td>@index</td>
+                        <td>@author.FullName</td>
+                        <td>@author.Slug</td>
+                        <td>
+                            <a asp-area="Admin" asp-controller="Authors" asp-action="Edit" asp-route-slug="@author.Slug" class="btn btn-sm btn-warning">Edit</a>
+                            <a asp-area="Admin" asp-controller="Authors" asp-action="Delete" asp-route-slug="@author.Slug" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    index++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

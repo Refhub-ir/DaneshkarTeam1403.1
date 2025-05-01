@@ -3,8 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Refhub_Ir.Data.Context;
 using Refhub_Ir.Data.Models;
 using Refhub_Ir.Service.Implement;
+
+using Refhub_Ir.Service.Interface;
+
 using Refhub_Ir.Service.Interfaces;
 using Refhub_Ir.Tools.ExtentionMethod;
+
 
 namespace Refhub_Ir
 {
@@ -16,8 +20,14 @@ namespace Refhub_Ir
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            //Add  CUstomServices
+            builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+            builder.Services.AddScoped<IAuthorService, AuthorService>();
+
             builder.Services.AddCustomService();
            
+
             #region  Add EFCore Configuration
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

@@ -1,0 +1,34 @@
+﻿@model Refhub_Ir.Areas.Admin.DTOs.AuthorDTO
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "ویرایش اطلاعات نویسنده";
+
+}
+
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="card shadow p-4" style="width: 500px;">
+        <h4 class="text-center mb-4 text-primary">ویرایش اطلاعات نویسنده</h4>
+        <form asp-action="Edit" method="post">
+            <input type="hidden" name="originalSlug" value="@ViewData["OriginalSlug"]" />
+
+            <div class="form-group mb-3">
+                <label asp-for="FullName" class="form-label">نام کامل</label>
+                <input asp-for="FullName" class="form-control" placeholder="مثلاً: علی رضایی" />
+                <span asp-validation-for="FullName" class="text-danger small"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Slug" class="form-label">اسلاگ</label>
+                <input asp-for="Slug" class="form-control" placeholder="مثلاً: ali-rezaei" />
+                <span asp-validation-for="Slug" class="text-danger small"></span>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a asp-action="ListAuthors" class="btn btn-primary">بازگشت به لیست</a>
+                <button type="submit" class="btn btn-success">ثبت تغییرات</button>
+            </div>
+        </form>
+    </div>
+</div>
