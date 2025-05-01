@@ -5,6 +5,10 @@
 	Layout = "_AdminLayout";
 	ViewBag.TitleHeaderPage = "مدیریت کتاب ها";
 }
+@{
+	var searchText = Context.Request.Query["searchtext"].ToString();
+}
+
 <section class="content">
 	<div class="container-fluid">
 
@@ -16,19 +20,19 @@
 
 						<a type="button" class="btn btn-block btn-success col-2" asp-area="Admin" asp-controller="ManageBook" asp-action="Create">ساخت کتاب جدید</a>
 						<div class="card-tools">
-
-							<div class="input-group input-group-sm" style="width: 150px;">
-
-								<input type="text" name="searchtext" class="form-control float-right" placeholder="جستجو">
-
-								<div class="input-group-append">
-									<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+							<form method="get" asp-action="Index" asp-controller="ManageBook" asp-area="Admin">
+								<div class="input-group input-group-sm" style="width: 200px;">
+									<input type="text" name="searchtext" class="form-control float-right" placeholder="جستجو"
+										   value="@searchText" />
+									<div class="input-group-append">
+										<button type="submit" class="btn btn-default">
+											<i class="fa fa-search"></i>
+										</button>
+									</div>
 								</div>
-
-
-							</div>
-
+							</form>
 						</div>
+
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body table-responsive p-0">

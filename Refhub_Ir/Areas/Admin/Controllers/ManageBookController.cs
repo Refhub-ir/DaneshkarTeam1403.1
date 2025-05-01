@@ -10,7 +10,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
     {
         public async Task<IActionResult> Index(string searchtext = "")
         {
-            var books= bookService.GetBooks(searchtext);
+            var books=await bookService.GetBooks(searchtext);
             return View(books);
         }
         [HttpGet]
