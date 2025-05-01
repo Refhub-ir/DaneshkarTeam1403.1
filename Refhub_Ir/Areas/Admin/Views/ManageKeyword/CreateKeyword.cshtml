@@ -1,0 +1,40 @@
+﻿@using Refhub_Ir.Models.DTO.Keyword
+@model CreateKeywordVM
+@{
+    ViewData["Title"] = "افزودن کلیدواژه";
+ Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>افزودن کلیدواژه</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">فرم افزودن کلیدواژه جدید</h3>
+            </div>
+            <form asp-area="Admin" asp-controller="ManageKeyword" asp-action="CreateKeyword" method="post">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Word">کلمه کلیدی</label>
+                        <input asp-for="Word" class="form-control" placeholder="مثلاً: آموزش، ASP.NET، سی‌شارپ" />
+                        <span asp-validation-for="Word" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">ذخیره</button>
+                    <a asp-action="ListKeyword" class="btn btn-secondary">لغو</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

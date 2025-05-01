@@ -21,10 +21,10 @@ namespace Refhub_Ir
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+
             //Add  CUstomServices
 
             builder.Services.AddCustomService();
-           
 
             #region  Add EFCore Configuration
             builder.Services.AddDbContext<AppDbContext>(options =>
