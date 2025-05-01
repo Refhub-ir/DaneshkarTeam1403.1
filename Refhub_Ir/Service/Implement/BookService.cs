@@ -60,7 +60,8 @@ namespace Refhub_Ir.Service.Implement
                 books = books.Where(a => a.Title.Contains(searchText));
             }
 
-            return books.Select(a => new BookVM()
+            return await books
+               .Select(a => new BookVM()
             {
                 Id = a.Id,
                 Title = a.Title,
@@ -68,7 +69,7 @@ namespace Refhub_Ir.Service.Implement
                 ImagePath = a.ImagePath,
                 Slug = a.Slug,
 
-            }).ToList();
+            }).ToListAsync();
         }
 
         public async Task<UpdateBookVM> GetBookDetialsForUpdate(int Id)
