@@ -17,7 +17,7 @@ namespace Refhub_Ir
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddCustomService();
-            builder.Services.AddScoped<ICategoryService, CategoryService>();
+           
             #region  Add EFCore Configuration
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
