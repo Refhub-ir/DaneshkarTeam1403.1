@@ -13,6 +13,7 @@ namespace Refhub_Ir.Tools.ExtentionMethod
             collection.AddScoped<ICategoryService, CategoryService>();
             collection.AddScoped<IAuthorRepository, AuthorRepository>();
             collection.AddScoped<IAuthorService, AuthorService>();
+            collection.AddScoped<IKeywordService, KeywordService>();
 
             collection.AddScoped<IFileUploaderService, LocalFileUploaderService>();
             return collection;
