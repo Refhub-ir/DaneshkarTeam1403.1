@@ -37,7 +37,6 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateKeyword(CreateKeywordVM model)
         {
             if (!ModelState.IsValid)
@@ -62,7 +61,6 @@ namespace Refhub_Ir.Areas.Admin.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditKeyword(EditKeywordVM vm)
         {
             if (!ModelState.IsValid)
@@ -79,7 +77,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
 
         #region DeleteKeyword
 
-     
+        [HttpPost]
         public async Task<IActionResult> DeleteKeyword(int id)
         {
             await _keywordService.DeleteAsync(id);
