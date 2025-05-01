@@ -7,6 +7,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
     [Area("Admin")]
     public class ManageKeywordController : Controller
     {
+        #region Constructor
         private readonly IKeywordService _keywordService;
 
         public ManageKeywordController(IKeywordService keywordService)
@@ -14,15 +15,24 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             _keywordService = keywordService;
         }
 
+        #endregion
+
+        #region ListKeyword
+
         public async Task<IActionResult> ListKeyword()
         {
             var keywords = await _keywordService.GetAllKeywordForListAsync();
             return View(keywords);
         }
 
+
+        #endregion
+
+        #region CreateKeyword
+
         [HttpGet]
         public async Task<IActionResult> CreateKeyword()
-        {          
+        {
             return View();
         }
 
@@ -32,11 +42,15 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-          await  _keywordService.AddKeywordAsync(model);
+            await _keywordService.AddKeywordAsync(model);
             return RedirectToAction("ListKeyword");
         }
 
-    
+        #endregion
+
+
+        #region EditKeyword
+
         [HttpGet]
         public async Task<IActionResult> EditKeyword(int id)
         {
@@ -45,23 +59,31 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             return View(vm);
         }
 
-     
+
         [HttpPost]
         public async Task<IActionResult> EditKeyword(EditKeywordVM vm)
         {
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
             {
                 return View(vm);
-            } 
+            }
 
             await _keywordService.UpdateAsync(vm);
             return RedirectToAction("ListKeyword");
         }
 
+        #endregion
+
+
+        #region DeleteKeyword
+
+        [HttpPost]
         public async Task<IActionResult> DeleteKeyword(int id)
         {
             await _keywordService.DeleteAsync(id);
             return RedirectToAction("ListKeyword");
         }
+        #endregion
+
     }
 }
