@@ -11,6 +11,9 @@ namespace Refhub_Ir.Tools.ExtentionMethod
         {
             collection.AddScoped<IBookService, BookService>();
             collection.AddScoped<ICategoryService, CategoryService>();
+            collection.AddScoped<IAuthorRepository, AuthorRepository>();
+            collection.AddScoped<IAuthorService, AuthorService>();
+
             collection.AddScoped<IFileUploaderService, LocalFileUploaderService>();
             return collection;
         }

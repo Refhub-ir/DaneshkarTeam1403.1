@@ -22,8 +22,6 @@ namespace Refhub_Ir
             builder.Services.AddControllersWithViews();
 
             //Add  CUstomServices
-            builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
-            builder.Services.AddScoped<IAuthorService, AuthorService>();
 
             builder.Services.AddCustomService();
            
