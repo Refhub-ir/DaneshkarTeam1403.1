@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Refhub_Ir.Data.Context;
 using Refhub_Ir.Models;
-using Refhub_Ir.Models.DTO.Keyword;
+using Refhub_Ir.Models.Keywords;
 using Refhub_Ir.Service.Interface;
 
 namespace Refhub_Ir.Service.Implement
