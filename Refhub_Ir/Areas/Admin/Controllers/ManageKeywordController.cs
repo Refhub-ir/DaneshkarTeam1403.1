@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Refhub_Ir.Models.DTO.Keyword;
+using Refhub_Ir.Models.Keywords;
 using Refhub_Ir.Service.Interface;
 
 namespace Refhub_Ir.Areas.Admin.Controllers
@@ -77,7 +77,6 @@ namespace Refhub_Ir.Areas.Admin.Controllers
 
         #region DeleteKeyword
 
-        [HttpPost]
         public async Task<IActionResult> DeleteKeyword(int id)
         {
             await _keywordService.DeleteAsync(id);
