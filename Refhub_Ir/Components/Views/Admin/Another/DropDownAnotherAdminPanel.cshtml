@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Refhub_Ir.Models.Books.CategoryDropDownVM>
+
+@{
+	Layout = null;
+}
+<div class="form-group">
+	<label> نویسنده </label>
+	<select name="AnotherId" class="form-control" multiple>
+		@foreach (var item in Model)
+		{
+			var status = item.IsSelected ? "selected" : "";
+			<option @status value="@item.Id"> @item.Name</option>
+		}
+
+
+	</select>
+	<div class="row my-5">
+		<input type="text" class="form-control col-3 mx-2" placeholder="عنوان در مرورگر" id="Slug_another" />
+		<input type="text" class="form-control col-3 mx-2" placeholder="نام کامل" id="FullName_another" />
+		<a href="#" class="btn btn-success col-1 mx-2" onclick="SubmitAnother()">ثبت نویسنده جدید</a>
+
+
+	</div>
+
+
+</div>
+
+<script>
+	function SubmitAnother() {
+		var slug = document.getElementById("Slug_another").value;
+		var fullname = document.getElementById("FullName_another").value;
+		console.log(slug);
+		console.log(fullname);
+		window.location.href= "/CreateAnother/" + slug + "/" + fullname;
+	}
+
+</script>

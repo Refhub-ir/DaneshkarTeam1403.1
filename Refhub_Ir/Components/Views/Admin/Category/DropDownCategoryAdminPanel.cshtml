@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Refhub_Ir.Models.Books.CategoryDropDownVM>
+
+@{
+	Layout = null;
+}
+<div class="form-group">
+	<label> دسته بندی</label>
+	<select name="CategoryId" class="form-control">
+		@foreach (var item in Model)
+		{
+			var status = item.IsSelected ? "selected":"";
+			<option @status value="@item.Id"> @item.Name</option>
+		}
+
+
+	</select>
+</div>

@@ -1,0 +1,55 @@
+﻿@using Refhub_Ir.Models.Categories
+@model IEnumerable<CategoryVM>
+
+@{
+    Layout = "_AdminLayout";
+    ViewBag.TitleHeaderPage = "مدیریت دسته‌بندی‌ها";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <a type="button" class="btn btn-block btn-success col-2" asp-area="Admin" asp-controller="ManageCategory" asp-action="Create">ایجاد دسته‌بندی جدید</a>
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="searchtext" class="form-control float-right" placeholder="جستجو">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>نام دسته‌بندی</th>
+                                    <th>Slug</th>
+                                    <th>توضیحات</th>
+                                    <th>عملیات</th>
+                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Name</td>
+                                        <td>@item.Slug</td>
+                                        <td>@item.Description</td>
+                                        <td>
+                                            <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-info">ویرایش</a>
+                                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">حذف</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

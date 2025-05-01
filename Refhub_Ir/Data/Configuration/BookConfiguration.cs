@@ -29,6 +29,10 @@ namespace Refhub_Ir.Data.Configuration
             builder.HasMany(b => b.RelatedFrom).WithOne(rf => rf.RelatedBook)
                 .HasForeignKey(rf => rf.RelatedBookId);
 
+
+            builder.HasOne(b => b.User).WithMany(rf => rf.Books)
+                .HasForeignKey(rf => rf.UserId);
+
         }
     }
 }
