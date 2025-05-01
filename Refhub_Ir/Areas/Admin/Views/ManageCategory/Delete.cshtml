@@ -1,0 +1,34 @@
+﻿@using Refhub_Ir.Models.Categories
+@model DeleteCategoryVM
+
+@{
+    Layout = "_AdminLayout";
+    ViewBag.TitleHeaderPage = "حذف دسته‌بندی";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-danger">
+                    <div class="card-header">
+                        <h3 class="card-title">حذف دسته‌بندی</h3>
+                    </div>
+                    <form asp-area="Admin" asp-controller="ManageCategory" asp-action="Delete" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="card-body">
+                            <p>آیا مطمئن هستید که می‌خواهید دسته‌بندی زیر را حذف کنید؟</p>
+                            <p><strong>نام دسته‌بندی:</strong> @Model.Name</p>
+                            <input type="hidden" asp-for="Id" />
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-danger">حذف</button>
+                            <a asp-action="Index" class="btn btn-secondary">لغو</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

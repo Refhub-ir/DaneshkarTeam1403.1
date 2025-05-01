@@ -3,7 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Refhub_Ir.Data.Context;
 using Refhub_Ir.Data.Models;
 using Refhub_Ir.Service.Implement;
+
 using Refhub_Ir.Service.Interface;
+
+using Refhub_Ir.Service.Interfaces;
+using Refhub_Ir.Tools.ExtentionMethod;
+
 
 namespace Refhub_Ir
 {
@@ -16,28 +21,29 @@ namespace Refhub_Ir
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            #region Add Service
 
-            builder.Services.AddScoped<IKeywordService, KeywordService>();
-            #endregion
+            //Add  CUstomServices
 
+            builder.Services.AddCustomService();
 
             #region  Add EFCore Configuration
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             #endregion
             #region Identity Confige
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
-                options.Password.RequireDigit =true;
+                options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 6;
             })
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
-            
-            builder.Services.ConfigureApplicationCookie(options => {
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
                 options.LoginPath = "/Account/Login";
                 options.AccessDeniedPath = "/Account/AccessDenied";
                 options.Cookie.Name = "RefHub.AuthCookie";
@@ -61,19 +67,16 @@ namespace Refhub_Ir
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                  name: "areas",
-                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
-            });
+
 
             app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                name: "areas",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+            );
 
-
+            app.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             app.Run();
         }
     }

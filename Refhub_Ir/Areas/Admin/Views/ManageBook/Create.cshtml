@@ -1,0 +1,69 @@
+﻿@model Refhub_Ir.Models.Books.CreateBookVM
+
+@{
+	Layout = "_AdminLayout";
+	ViewBag.TitleHeaderPage = "ساخت کتاب ها";
+}
+
+<section class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<!-- left column -->
+			<div class="col-md-12">
+				<!-- general form elements -->
+				<div class="card card-primary">
+					<div class="card-header">
+						<h3 class="card-title">مثال ساده</h3>
+					</div>
+					<!-- /.card-header -->
+					<!-- form start -->
+					<form asp-area="Admin" asp-controller="ManageBook" asp-action="Create" method="post" enctype="multipart/form-data">
+						<div asp-validation-summary="All" class="text-danger px-5"></div>
+						<div class="card-body">
+							<div class="form-group">
+								<label asp-for="Title">عنوان </label>
+								<input asp-for="Title" type="text" class="form-control" placeholder="عنوان کتاب را وارد کنید">
+							</div>
+
+							<div class="form-group">
+								<label asp-for="Slug">عنوان کتاب در url</label>
+								<input asp-for="Slug" type="text" class="form-control" placeholder=" عنوان کتاب  در url را وارد کنید">
+							</div>
+
+							<div class="form-group">
+								<label asp-for="PageCount"> تعداد صفحه</label>
+								<input asp-for="PageCount" class="form-control" placeholder="تعداد صفحه کتاب را وارد کنید">
+							</div>
+							@await Component.InvokeAsync("DropDownCategoryAdminPanel")
+							@await Component.InvokeAsync("DropDownAnotherAdminPanel")
+							<div class="form-group">
+								<label asp-for="File">ارسال فایل</label>
+
+								<input type="file" class="form-control" asp-for="File">
+
+							</div>
+							<div class="form-group">
+								<label asp-for="Image">ارسال تصویر</label>
+
+								<input type="file" class="form-control" asp-for="Image">
+
+							</div>
+						</div>
+						<!-- /.card-body -->
+
+						<div class="card-footer">
+							<button type="submit" class="btn btn-primary">ارسال</button>
+						</div>
+					</form>
+				</div>
+				<!-- /.card -->
+
+
+			</div>
+			<!--/.col (left) -->
+
+		</div>
+		<!-- /.row -->
+	</div><!-- /.container-fluid -->
+</section>
+<partial name="_ValidationScriptsPartial"/>
