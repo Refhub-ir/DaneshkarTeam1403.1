@@ -1,7 +1,7 @@
 ﻿@model Refhub_Ir.Areas.Admin.DTOs.AuthorDTO
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     ViewData["Title"] = "افزودن نویسنده جدید";
 }
 
@@ -15,12 +15,12 @@
                 <div class="card-body">
                     <form asp-area="Admin" asp-controller="Authors" asp-action="Create" method="post">
                         <div class="form-group">
-                            <label asp-for="FullName" class="control-label"></label>
+                            <label asp-for="FullName" class="control-label">نام نویسنده</label>
                             <input asp-for="FullName" class="form-control" />
                             <span asp-validation-for="FullName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Slug" class="control-label"></label>
+                            <label asp-for="Slug" class="control-label">نام اسلاگ</label>
                             <input asp-for="Slug" class="form-control" />
                             <span asp-validation-for="Slug" class="text-danger"></span>
                         </div>
