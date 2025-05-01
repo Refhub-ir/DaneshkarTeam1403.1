@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Refhub_Ir.Models.DTO.User
+namespace Refhub_Ir.Models.Users
 {
     public class RegisterViewModel
     {
@@ -13,7 +13,7 @@ namespace Refhub_Ir.Models.DTO.User
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        
+
         [Required(ErrorMessage = "تکرار رمز خود را وارد کن")]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "رمز عبور و تکرار آن یکسان نیست .")]

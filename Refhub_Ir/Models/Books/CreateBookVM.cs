@@ -18,8 +18,9 @@ namespace Refhub_Ir.Models.Books
 
         public string? UserId { get; set; }
         // Foreign Key
-        [Required(ErrorMessage = "یک دسته بنید انتخاب کنید")]
+        [Required(ErrorMessage = "یک دسته بندی انتخاب کنید")]
         public int CategoryId { get; set; }
+        [Required(ErrorMessage = "یک نویسند انتخاب کنید")]
         public List<int> AnotherId { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Refhub_Ir.Models.DTO.User
+namespace Refhub_Ir.Models.Users
 {
     public class LoginViewModel
     {

@@ -1,4 +1,4 @@
-﻿namespace Refhub_Ir.Models.DTO.Keyword
+﻿namespace Refhub_Ir.Models.Keywords
 {
     public class KeywordListVM
     {
