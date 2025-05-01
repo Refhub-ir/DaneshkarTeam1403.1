@@ -31,38 +31,38 @@
         
         
         
-        <div class="content-wrapper" style="min-height: 680px;">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>@ViewBag.TitleHeaderPage </h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-left">
-                                <li class="breadcrumb-item"><a href="#">خانه</a></li>
-                                <li class="breadcrumb-item active">@ViewBag.TitleHeaderPage</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div><!-- /.container-fluid -->
-            </section>
+    <div class="content-wrapper" style="min-height: 680px;">
+	    <!-- Content Header (Page header) -->
+	    <section class="content-header">
+		    <div class="container-fluid">
+			    <div class="row mb-2">
+				    <div class="col-sm-6">
+					    <h1>@ViewBag.TitleHeaderPage </h1>
+				    </div>
+				    <div class="col-sm-6">
+					    <ol class="breadcrumb float-sm-left">
+						    <li class="breadcrumb-item"><a href="#">خانه</a></li>
+						    <li class="breadcrumb-item active">@ViewBag.TitleHeaderPage</li>
+					    </ol>
+				    </div>
+			    </div>
+		    </div><!-- /.container-fluid -->
+	    </section>
 
 
-        <div class="content-wrapper">
-            @RenderBody()
-        </div>
+	    @RenderBody()
+   
 
 
-        @Html.Partial("./Partials/Footer.cshtml")
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+  
+	    <!-- Control Sidebar -->
+	    <aside class="control-sidebar control-sidebar-dark">
+		    <!-- Control sidebar content goes here -->
+	    </aside>
+	    <!-- /.control-sidebar -->
 
     </div>
+    @Html.Partial("./Partials/Footer.cshtml")
     <!-- ./wrapper -->
     <!-- jQuery -->
     @Html.Partial("./Partials/Script.cshtml")
