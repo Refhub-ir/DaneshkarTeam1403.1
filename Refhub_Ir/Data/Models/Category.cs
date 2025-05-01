@@ -1,4 +1,4 @@
-﻿namespace Refhub_Ir.Models
+﻿namespace Refhub_Ir.Data.Models
 {
     public class Category
     {

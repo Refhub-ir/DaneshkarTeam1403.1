@@ -1,4 +1,6 @@
-﻿namespace Refhub_Ir.Models
+﻿using Refhub_Ir.Data.Models;
+
+namespace Refhub_Ir.Data.Models
 {
     public class BookAuthor
     {
