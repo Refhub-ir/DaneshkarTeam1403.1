@@ -25,7 +25,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateCategoryVM model)
         {
             if (ModelState.IsValid)
@@ -51,7 +51,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(UpdateCategoryVM model)
         {
             if (ModelState.IsValid)
@@ -76,7 +76,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             return View(model);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _categoryService.DeleteCategoryAsync(id);

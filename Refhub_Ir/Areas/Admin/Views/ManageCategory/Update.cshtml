@@ -15,6 +15,7 @@
                         <h3 class="card-title">ویرایش دسته‌بندی</h3>
                     </div>
                     <form asp-area="Admin" asp-controller="ManageCategory" asp-action="Update" method="post">
+                        @Html.AntiForgeryToken()
                         <div asp-validation-summary="All" class="text-danger px-5"></div>
                         <div class="card-body">
                             <!-- Hidden field for Id -->

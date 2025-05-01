@@ -15,6 +15,7 @@
                         <h3 class="card-title">حذف دسته‌بندی</h3>
                     </div>
                     <form asp-area="Admin" asp-controller="ManageCategory" asp-action="Delete" method="post">
+                        @Html.AntiForgeryToken()
                         <div class="card-body">
                             <p>آیا مطمئن هستید که می‌خواهید دسته‌بندی زیر را حذف کنید؟</p>
                             <p><strong>نام دسته‌بندی:</strong> @Model.Name</p>

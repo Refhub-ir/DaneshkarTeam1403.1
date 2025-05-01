@@ -15,6 +15,7 @@
                         <h3 class="card-title">ایجاد دسته‌بندی</h3>
                     </div>
                     <form asp-area="Admin" asp-controller="ManageCategory" asp-action="Create" method="post" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
                         <div asp-validation-summary="All" class="text-danger px-5"></div>
                         <div class="card-body">
                             <div class="form-group">
