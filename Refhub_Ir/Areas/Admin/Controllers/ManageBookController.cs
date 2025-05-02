@@ -48,7 +48,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
                 return View(model);
-            model.UserId = "b0052a44-4253-4da6-8e26-0e42e7fac925";
+            //model.UserId = "b0052a44-4253-4da6-8e26-0e42e7fac925";
             var res = await bookService.UpdateBook(model);
             if (res)
                 return RedirectToAction("Index");
