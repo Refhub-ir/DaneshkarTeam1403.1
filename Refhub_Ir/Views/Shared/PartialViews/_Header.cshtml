@@ -205,9 +205,16 @@
 				<!-- Nav category menu END -->
 				<!-- Nav Main menu START -->
 				<ul class="navbar-nav navbar-nav-scroll me-auto">
-					
+					@if (User.Identity.IsAuthenticated)
+					{
+						<a href="#" class="btn btn-primary mb-0">سلام  @User.Identity.Name </a>
+					}
+					else
+					{
+						<a asp-controller="Account" asp-action="Login" class="btn btn-primary mb-0">ورود</a>
+					}
 					<!-- Nav item 1 Demos -->
-					<a asp-controller="Account" asp-action="Login" class="btn btn-primary mb-0">ورود</a>
+					
 					
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle active" href="#" id="demoMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">صفحه اصلی</a>
@@ -565,6 +572,14 @@
 							</li>
 						</ul>
 					</li>
+					@if (User.Identity.IsAuthenticated)
+					{
+						<form asp-controller="Account" asp-action="Logout" method="post" style="display:inline;">
+							<button type="submit" class="btn btn-lg btn-danger-soft me-2 mb-4 mb-sm-0" style="cursor:pointer;">
+								خروج
+							</button>
+						</form>
+					}
 				</ul>
 				<!-- Nav Main menu END -->
 				<!-- Nav Search START -->
