@@ -26,7 +26,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(string slug, CancellationToken ct)
         {
-            var author = await _authorService.GetAuthorBySlugAsync(slug);
+            var author = await _authorService.GetAuthorBySlugAsync(slug, ct);
 
             if (author == null)
                 return View("Details", null);
