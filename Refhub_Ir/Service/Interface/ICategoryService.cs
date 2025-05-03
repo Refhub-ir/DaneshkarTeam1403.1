@@ -4,11 +4,11 @@ namespace Refhub_Ir.Service.Interfaces
 {
     public interface ICategoryService
     {
-        Task<List<CategoryVM>> GetAllCategoriesAsync();
-        Task<CategoryVM> GetCategoryByIdAsync(int id);
-        Task CreateCategoryAsync(CreateCategoryVM model);
-        Task UpdateCategoryAsync(UpdateCategoryVM model);
-        Task DeleteCategoryAsync(int id);
+        Task<List<CategoryVM>> GetAllCategoriesAsync(CancellationToken ct);
+        Task<CategoryVM> GetCategoryByIdAsync(int id, CancellationToken ct);
+        Task CreateCategoryAsync(CreateCategoryVM model, CancellationToken ct);
+        Task UpdateCategoryAsync(UpdateCategoryVM model, CancellationToken ct);
+        Task DeleteCategoryAsync(int id, CancellationToken ct);
     }
 }
 

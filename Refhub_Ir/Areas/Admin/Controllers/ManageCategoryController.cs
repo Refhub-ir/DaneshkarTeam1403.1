@@ -5,18 +5,13 @@ using Refhub_Ir.Service.Interfaces;
 namespace Refhub_Ir.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ManageCategoryController : Controller
+    public class ManageCategoryController(ICategoryService _categoryService) : Controller
     {
-        private readonly ICategoryService _categoryService;
+    
 
-        public ManageCategoryController(ICategoryService categoryService)
+        public async Task<IActionResult> Index(CancellationToken ct)
         {
-            _categoryService = categoryService;
-        }
-
-        public async Task<IActionResult> Index()
-        {
-            var categories = await _categoryService.GetAllCategoriesAsync();
+            var categories = await _categoryService.GetAllCategoriesAsync(ct);
             return View(categories);
         }
 
@@ -26,19 +21,19 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateCategoryVM model)
+        public async Task<IActionResult> Create(CreateCategoryVM model, CancellationToken ct)
         {
             if (ModelState.IsValid)
             {
-                await _categoryService.CreateCategoryAsync(model);
+                await _categoryService.CreateCategoryAsync(model,ct);
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
         }
 
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> Update(int id, CancellationToken ct)
         {
-            var category = await _categoryService.GetCategoryByIdAsync(id);
+            var category = await _categoryService.GetCategoryByIdAsync(id, ct);
             if (category == null) return NotFound();
 
             var model = new UpdateCategoryVM
@@ -52,19 +47,19 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(UpdateCategoryVM model)
+        public async Task<IActionResult> Update(UpdateCategoryVM model, CancellationToken ct)
         {
             if (ModelState.IsValid)
             {
-                await _categoryService.UpdateCategoryAsync(model);
+                await _categoryService.UpdateCategoryAsync(model,ct);
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, CancellationToken ct)
         {
-            var category = await _categoryService.GetCategoryByIdAsync(id);
+            var category = await _categoryService.GetCategoryByIdAsync(id, ct);
             if (category == null) return NotFound();
 
             var model = new DeleteCategoryVM
@@ -77,9 +72,9 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         }
 
         [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, CancellationToken ct)
         {
-            await _categoryService.DeleteCategoryAsync(id);
+            await _categoryService.DeleteCategoryAsync(id,ct);
             return RedirectToAction(nameof(Index));
         }
     }

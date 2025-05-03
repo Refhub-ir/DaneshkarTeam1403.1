@@ -16,7 +16,7 @@ namespace Refhub_Ir.Service.Implement
             _context = context;
         }
 
-        public async Task<List<CategoryVM>> GetAllCategoriesAsync()
+        public async Task<List<CategoryVM>> GetAllCategoriesAsync(CancellationToken ct)
         {
             return await _context.Categories
                 .Include(c => c.Books)
@@ -36,7 +36,7 @@ namespace Refhub_Ir.Service.Implement
                 }).ToListAsync();
         }
 
-        public async Task<CategoryVM> GetCategoryByIdAsync(int id)
+        public async Task<CategoryVM> GetCategoryByIdAsync(int id, CancellationToken ct)
         {
             var category = await _context.Categories
                 .Include(c => c.Books)
@@ -60,7 +60,7 @@ namespace Refhub_Ir.Service.Implement
             };
         }
 
-        public async Task CreateCategoryAsync(CreateCategoryVM model)
+        public async Task CreateCategoryAsync(CreateCategoryVM model, CancellationToken ct)
         {
             var category = new Category
             {
@@ -72,7 +72,7 @@ namespace Refhub_Ir.Service.Implement
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateCategoryAsync(UpdateCategoryVM model)
+        public async Task UpdateCategoryAsync(UpdateCategoryVM model, CancellationToken ct)
         {
             var category = await _context.Categories.FindAsync(model.Id);
             if (category == null) return;
@@ -84,7 +84,7 @@ namespace Refhub_Ir.Service.Implement
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteCategoryAsync(int id)
+        public async Task DeleteCategoryAsync(int id, CancellationToken ct)
         {
             var category = await _context.Categories.FindAsync(id);
             if (category == null) return;
