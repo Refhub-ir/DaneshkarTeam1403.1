@@ -14,8 +14,6 @@ namespace Refhub_Ir.Service.Implement
         {
             var category = context.Categories.AsQueryable();
 
-
-
             return category.Select(a => new CategoryDropDownVM()
             {
                 Id = a.Id,
@@ -29,9 +27,7 @@ namespace Refhub_Ir.Service.Implement
         {
             // بررسی ورودی
             if (Ids == null || !Ids.Any())
-            {
                 Ids = new List<int>();
-            }
 
             //todo
             var anothers = context.Authors.AsQueryable();
@@ -52,7 +48,7 @@ namespace Refhub_Ir.Service.Implement
             return true;
         }
 
-        public async Task<IEnumerable<BookVM>> GetBooks(string searchText = "")
+        public async Task<IEnumerable<BookVM>> GetBooks(string? searchText)
         {
             var books = context.Books.AsQueryable();
 
@@ -133,7 +129,6 @@ namespace Refhub_Ir.Service.Implement
         {
             try
             {
-             
                 var _book = context.Books.FirstOrDefault(a => a.Id.Equals(book.Id));
 
                 _book.CategoryId = book.CategoryId;
