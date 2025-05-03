@@ -24,30 +24,14 @@ namespace Refhub_Ir
 
             //Add  CUstomServices
 
+
+
+
+            #region CustomExtentionMethod 
             builder.Services.AddCustomService();
-
-            #region  Add EFCore Configuration
-            builder.Services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-            #endregion
-            #region Identity Confige
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-            {
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireDigit = true;
-                options.Password.RequiredLength = 6;
-            })
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
-
-
-            builder.Services.ConfigureApplicationCookie(options =>
-            {
-                options.LoginPath = "/Account/Login";
-                options.AccessDeniedPath = "/Account/AccessDenied";
-                options.Cookie.Name = "RefHub.AuthCookie";
-            });
+            builder.Services.ConfigureContext(builder.Configuration);
+            builder.Services.ConfigureCookie();
+            builder.Services.ConfigureIdentity();
             #endregion
             var app = builder.Build();
 
