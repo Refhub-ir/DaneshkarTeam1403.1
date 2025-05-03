@@ -10,6 +10,6 @@ namespace Refhub_Ir.Data.Models
         public string Slug { get; set; }
 
         // Navigation Property
-        public List<BookAuthor> BookAuthors { get; set; } = new();
+        public List<BookAuthor>? BookAuthors { get; set; }
     }
 }
