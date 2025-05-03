@@ -10,7 +10,7 @@ namespace Refhub_Ir.Service.Implement
 {
     public class BookService(AppDbContext context, IFileUploaderService uploaderService) : IBookService
     {
-        public async Task<IEnumerable<CategoryDropDownVM>> GetCategories(int Id, CancellationToken ct)
+        public async Task<IEnumerable<CategoryDropDownVM>> GetCategoriesAsync(int Id, CancellationToken ct)
         {
             var category = context.Categories.AsQueryable();
 
@@ -25,7 +25,7 @@ namespace Refhub_Ir.Service.Implement
             }).ToListAsync(ct);
         }
 
-        public async Task<IEnumerable<CategoryDropDownVM>> GetAnothers(List<int> Ids, CancellationToken ct)
+        public async Task<IEnumerable<CategoryDropDownVM>> GetAnothersAsync(List<int> Ids, CancellationToken ct)
         {
             // بررسی ورودی
             if (Ids == null || !Ids.Any())
@@ -45,14 +45,14 @@ namespace Refhub_Ir.Service.Implement
             }).ToListAsync(ct);
         }
 
-        public async Task<bool> CreateAnother(string fullname, string slug, CancellationToken ct)
+        public async Task<bool> CreateAnotherAsync(string fullname, string slug, CancellationToken ct)
         {
             await context.Authors.AddAsync(new Author() { Slug = slug, FullName = fullname }, ct);
             await context.SaveChangesAsync(ct);
             return true;
         }
 
-        public async Task<IEnumerable<BookVM>> GetBooks(string? searchText, CancellationToken ct)
+        public async Task<IEnumerable<BookVM>> GetBooksAsync(string? searchText, CancellationToken ct)
         {
             var books = context.Books.AsQueryable();
 
@@ -73,7 +73,7 @@ namespace Refhub_Ir.Service.Implement
                }).ToListAsync(ct);
         }
 
-        public async Task<UpdateBookVM> GetBookDetialsForUpdate(int Id, CancellationToken ct)
+        public async Task<UpdateBookVM> GetBookDetialsForUpdateAsync(int Id, CancellationToken ct)
         {
             UpdateBookVM model = new UpdateBookVM();
             var book = await context.Books.Include(a => a.BookAuthors).FirstOrDefaultAsync(a => a.Id.Equals(Id), ct);
@@ -92,12 +92,12 @@ namespace Refhub_Ir.Service.Implement
             return model;
         }
 
-        public Task<IEnumerable<BookVM>> GetBook(int Id, CancellationToken ct)
+        public Task<IEnumerable<BookVM>> GetBookAsync(int Id, CancellationToken ct)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<bool> CreateBook(CreateBookVM book, CancellationToken ct)
+        public async Task<bool> CreateBookAsync(CreateBookVM book, CancellationToken ct)
         {
             try
             {
@@ -129,7 +129,7 @@ namespace Refhub_Ir.Service.Implement
 
         }
 
-        public async Task<bool> UpdateBook(UpdateBookVM book, CancellationToken ct)
+        public async Task<bool> UpdateBookAsync(UpdateBookVM book, CancellationToken ct)
         {
             try
             {
@@ -180,7 +180,7 @@ namespace Refhub_Ir.Service.Implement
 
         }
 
-        public async Task<bool> DeleteBook(int Id, CancellationToken ct)
+        public async Task<bool> DeleteBookAsync(int Id, CancellationToken ct)
         {
             var book = context.Books.FirstOrDefault(a => a.Id.Equals(Id));
             if (book != null)
