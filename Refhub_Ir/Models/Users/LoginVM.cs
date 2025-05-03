@@ -2,7 +2,7 @@
 
 namespace Refhub_Ir.Models.Users
 {
-    public class RegisterViewModel
+    public class LoginVM
     {
         [Required(ErrorMessage = "ایمیل خود را وارد کنید")]
         [EmailAddress(ErrorMessage = "فرمت ایمیل درست نیست")]
@@ -13,10 +13,7 @@ namespace Refhub_Ir.Models.Users
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-
-        [Required(ErrorMessage = "تکرار رمز خود را وارد کن")]
-        [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "رمز عبور و تکرار آن یکسان نیست .")]
-        public string ConfirmPassword { get; set; }
+        [Display(Name = "مرا به خاطر بسپار ! ")]
+        public bool RememberMe { get; set; }
     }
 }

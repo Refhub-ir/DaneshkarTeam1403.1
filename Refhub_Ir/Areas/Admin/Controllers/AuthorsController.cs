@@ -46,22 +46,22 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         // POST: /Admin/Authors/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(AuthorDTO authorDTO, CancellationToken ct)
+        public async Task<IActionResult> Create(AuthorVM authorVm, CancellationToken ct)
         {
             if (!ModelState.IsValid)
             {
-                return View(authorDTO);
+                return View(authorVm);
             }
 
             try
             {
-                await _authorService.CreateAuthorAsync(authorDTO,ct);
+                await _authorService.CreateAuthorAsync(authorVm,ct);
                 return RedirectToAction(nameof(ListAuthors));
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                return View(authorDTO);
+                return View(authorVm);
             }
         }
         #endregion
@@ -74,7 +74,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             var author = await _authorService.GetAuthorBySlugAsync(slug,ct);
             if (author == null) return NotFound();
 
-            var dto = new AuthorDTO
+            var dto = new AuthorVM
             {
                 FullName = author.FullName,
                 Slug = author.Slug
@@ -87,24 +87,24 @@ namespace Refhub_Ir.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(AuthorDTO authorDto, string originalSlug, CancellationToken ct)
+        public async Task<IActionResult> Edit(AuthorVM authorVm, string originalSlug, CancellationToken ct)
         {
             if (!ModelState.IsValid)
             {
                 ViewData["OriginalSlug"] = originalSlug;
-                return View(authorDto);
+                return View(authorVm);
             }
 
             try
             {
-                await _authorService.UpdateAuthorAsync(authorDto, originalSlug,ct);
+                await _authorService.UpdateAuthorAsync(authorVm, originalSlug,ct);
                 return RedirectToAction(nameof(ListAuthors));
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
                 ViewData["OriginalSlug"] = originalSlug;
-                return View(authorDto);
+                return View(authorVm);
             }
         }
 

@@ -14,10 +14,10 @@ namespace Refhub_Ir.Service.Implement
             _authorRepository = authorRepository;
         }
 
-        public async Task<List<AuthorDTO>> GetAllAuthorsAsync( CancellationToken ct)
+        public async Task<List<AuthorVM>> GetAllAuthorsAsync( CancellationToken ct)
         {
             var authors = await _authorRepository.GetAllAsync(ct);
-            return authors.Select(a => new AuthorDTO
+            return authors.Select(a => new AuthorVM
             {
                 FullName = a.FullName,
                 Slug = a.Slug
@@ -25,45 +25,45 @@ namespace Refhub_Ir.Service.Implement
         }
 
 
-        public async Task<AuthorDTO> GetAuthorBySlugAsync(string slug, CancellationToken ct)
+        public async Task<AuthorVM> GetAuthorBySlugAsync(string slug, CancellationToken ct)
         {
             var author = await _authorRepository.GetBySlugAsync(slug, ct);
             if (author == null) return null;
-            return new AuthorDTO
+            return new AuthorVM
             {
                 FullName = author.FullName,
                 Slug = author.Slug
             };
         }
 
-        public async Task CreateAuthorAsync(AuthorDTO authorDto, CancellationToken ct)
+        public async Task CreateAuthorAsync(AuthorVM authorVm, CancellationToken ct)
         {
             // چک کردن منحصربه‌فرد بودن Slug
-            if (await _authorRepository.SlugExistsAsync(ct,authorDto.Slug))
+            if (await _authorRepository.SlugExistsAsync(ct,authorVm.Slug))
             {
                 throw new Exception("اسلاگ قبلاً استفاده شده است");
             }
 
             var author = new Author
             {
-                FullName = authorDto.FullName,
-                Slug = authorDto.Slug
+                FullName = authorVm.FullName,
+                Slug = authorVm.Slug
             };
             await _authorRepository.AddAsync(author,ct);
         }
 
-        public async Task UpdateAuthorAsync(AuthorDTO authorDto, string originalSlug, CancellationToken ct)
+        public async Task UpdateAuthorAsync(AuthorVM authorVm, string originalSlug, CancellationToken ct)
         {
             var author = await _authorRepository.GetBySlugAsync(originalSlug, ct);
             if (author == null) throw new Exception("نویسنده پیدا نشد");
 
-            if (authorDto.Slug != originalSlug && await _authorRepository.SlugExistsAsync(ct,authorDto.Slug))
+            if (authorVm.Slug != originalSlug && await _authorRepository.SlugExistsAsync(ct,authorVm.Slug))
             {
                 throw new Exception("اسلاگ قبلاً استفاده شده است");
             }
 
-            author.FullName = authorDto.FullName;
-            author.Slug = authorDto.Slug;
+            author.FullName = authorVm.FullName;
+            author.Slug = authorVm.Slug;
 
             await _authorRepository.UpdateAsync(author,ct);
         }
