@@ -49,8 +49,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         }
 
         // POST: /Admin/Authors/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AuthorDTO authorDTO)
         {
             if (!ModelState.IsValid)
@@ -90,8 +89,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         }
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(AuthorDTO authorDto, string originalSlug)
         {
             if (!ModelState.IsValid)
@@ -125,8 +123,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         }
 
         // POST: /Admin/Authors/Delete/john-doe
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string slug)
         {
             var author = await _authorService.GetAuthorBySlugAsync(slug);
