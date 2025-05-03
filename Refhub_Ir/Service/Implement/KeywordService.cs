@@ -23,12 +23,12 @@ namespace Refhub_Ir.Service.Implement
             };
 
          await   _Context.Keywords.AddAsync(keyword,ct);
-          await  _Context.SaveChangesAsync();
+          await  _Context.SaveChangesAsync(ct);
         }
 
         public async Task DeleteAsync(int id, CancellationToken ct)
         {
-            var keyword = await _Context.Keywords.FindAsync(id);
+            var keyword = await _Context.Keywords.FindAsync(id, ct);
             if (keyword == null) return;
 
             _Context.Keywords.Remove(keyword);
@@ -61,7 +61,7 @@ namespace Refhub_Ir.Service.Implement
 
         public async Task UpdateAsync(EditKeywordVM vm, CancellationToken ct)
         {
-            var keyword = await _Context.Keywords.FindAsync(vm.Id);
+            var keyword = await _Context.Keywords.FindAsync(vm.Id, ct);
             if (keyword == null) return;
 
             keyword.Word = vm.Word;

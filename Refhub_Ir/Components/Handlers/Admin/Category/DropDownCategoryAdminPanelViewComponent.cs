@@ -8,10 +8,10 @@ namespace Refhub_Ir.Components.Handlers.Admin.Category
         : ViewComponent
     {
 
-        public async Task<IViewComponentResult> InvokeAsync(int Id)
+        public async Task<IViewComponentResult> InvokeAsync(int Id, CancellationToken ct)
         {
             string viewPath = this.GetDefaultViewPath();
-            return View(viewPath, await bookService.GetCategories(Id));
+            return View(viewPath, await bookService.GetCategories(Id, ct));
         }
 
     }

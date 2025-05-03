@@ -33,14 +33,14 @@ namespace Refhub_Ir.Service.Implement
                         Slug = b.Slug,
                         ImagePath = b.ImagePath
                     }).ToList()
-                }).ToListAsync();
+                }).ToListAsync(ct);
         }
 
         public async Task<CategoryVM> GetCategoryByIdAsync(int id, CancellationToken ct)
         {
             var category = await _context.Categories
                 .Include(c => c.Books)
-                .FirstOrDefaultAsync(c => c.Id == id);
+                .FirstOrDefaultAsync(c => c.Id == id,ct);
 
             if (category == null) return null;
 
@@ -68,29 +68,29 @@ namespace Refhub_Ir.Service.Implement
                 slug = model.Slug,
                 Description = model.Description
             };
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
+           await _context.Categories.AddAsync(category, ct);
+            await _context.SaveChangesAsync(ct);
         }
 
         public async Task UpdateCategoryAsync(UpdateCategoryVM model, CancellationToken ct)
         {
-            var category = await _context.Categories.FindAsync(model.Id);
+            var category = await _context.Categories.FindAsync(model.Id, ct);
             if (category == null) return;
 
             category.Name = model.Name;
             category.slug = model.Slug;
             category.Description = model.Description;
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(ct);
         }
 
         public async Task DeleteCategoryAsync(int id, CancellationToken ct)
         {
-            var category = await _context.Categories.FindAsync(id);
+            var category = await _context.Categories.FindAsync(id,ct);
             if (category == null) return;
 
             _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(ct);
         }
     }
 }
