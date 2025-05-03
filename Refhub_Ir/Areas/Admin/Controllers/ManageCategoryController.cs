@@ -80,7 +80,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _categoryService.DeleteCategoryAsync(id);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
     }
 }
