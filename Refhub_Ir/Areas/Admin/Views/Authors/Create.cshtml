@@ -1,0 +1,34 @@
+﻿@model Refhub_Ir.Areas.Admin.DTOs.AuthorDTO
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "افزودن نویسنده جدید";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0 text-center">افزودن نویسنده جدید</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-area="Admin" asp-controller="Authors" asp-action="Create" method="post">
+                        <div class="form-group">
+                            <label asp-for="FullName" class="control-label">نام نویسنده</label>
+                            <input asp-for="FullName" class="form-control" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Slug" class="control-label">نام اسلاگ</label>
+                            <input asp-for="Slug" class="form-control" />
+                            <span asp-validation-for="Slug" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block mt-3">ثبت نویسنده</button>
+                        <a asp-area="Admin" asp-controller="Authors" asp-action="ListAuthors" class="btn btn-primary btn-btn success">بازگشت به لیست</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
