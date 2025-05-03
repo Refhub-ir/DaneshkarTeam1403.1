@@ -15,6 +15,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         }
         [HttpGet]
         public IActionResult Create() => View();
+
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateBookVM model)
         {
@@ -39,7 +40,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             if (book!=null)
                 return View(book);
 
-            return NotFound();               // 
+            return RedirectToPage("NotFound"); 
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -60,10 +61,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var res = bookService.DeleteBook(id);         //
-
-            return RedirectToAction("Index");
-
+            return RedirectToAction("Index", bookService.DeleteBook(id));
         }
 
         [HttpGet("/CreateAnother/{Slug}/{FullName}")]
