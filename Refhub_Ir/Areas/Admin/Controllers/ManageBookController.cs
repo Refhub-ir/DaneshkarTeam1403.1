@@ -35,10 +35,9 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         public async Task<IActionResult> Update(int Id)
         {
             var book = await bookService.GetBookDetialsForUpdate(Id);
+
             if (book!=null)
-            {
                 return View(book);
-            }
 
             return NotFound();               // 
         }
