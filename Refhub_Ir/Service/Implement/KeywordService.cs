@@ -14,7 +14,7 @@ namespace Refhub_Ir.Service.Implement
             _Context = context;
         }
 
-        public async Task AddKeywordAsync(CreateKeywordVM model)
+        public async Task AddKeywordAsync(CreateKeywordVM model, CancellationToken ct)
         {
             var keyword = new Keyword
             {
@@ -22,32 +22,32 @@ namespace Refhub_Ir.Service.Implement
 
             };
 
-            _Context.Keywords.Add(keyword);
-            _Context.SaveChanges();
+         await   _Context.Keywords.AddAsync(keyword,ct);
+          await  _Context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id, CancellationToken ct)
         {
             var keyword = await _Context.Keywords.FindAsync(id);
             if (keyword == null) return;
 
             _Context.Keywords.Remove(keyword);
-            await _Context.SaveChangesAsync();
+            await _Context.SaveChangesAsync(ct);
         }
 
-        public Task<List<KeywordListVM>> GetAllKeywordForListAsync()
+        public Task<List<KeywordListVM>> GetAllKeywordForListAsync( CancellationToken ct)
         {
             return _Context.Keywords.Select(x => new KeywordListVM
             {
                 Id = x.Id,
                 Word = x.Word,
 
-            }).ToListAsync();
+            }).ToListAsync(ct);
         }
 
-        public async Task<EditKeywordVM> GetForEdit(int id)
+        public async Task<EditKeywordVM> GetForEdit(int id, CancellationToken ct)
         {
-            var keyword = _Context.Keywords.Find(id);
+            var keyword =await _Context.Keywords.FindAsync(id,ct);
             if (keyword == null) return null;
 
             var model = new EditKeywordVM
@@ -59,14 +59,14 @@ namespace Refhub_Ir.Service.Implement
             return model;
         }
 
-        public async Task UpdateAsync(EditKeywordVM vm)
+        public async Task UpdateAsync(EditKeywordVM vm, CancellationToken ct)
         {
             var keyword = await _Context.Keywords.FindAsync(vm.Id);
             if (keyword == null) return;
 
             keyword.Word = vm.Word;
             _Context.Keywords.Update(keyword);
-            await _Context.SaveChangesAsync();
+            await _Context.SaveChangesAsync(ct);
         }
     }
 }
