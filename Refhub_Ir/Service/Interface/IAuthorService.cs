@@ -4,11 +4,11 @@ namespace Refhub_Ir.Service.Interface
 {
     public interface IAuthorService
     {
-        Task<List<AuthorDTO>> GetAllAuthorsAsync();
-        Task<AuthorDTO> GetAuthorBySlugAsync(string slug);
-        Task CreateAuthorAsync(AuthorDTO authorDto);
-        Task UpdateAuthorAsync(AuthorDTO authorDto, string originalSlug);
-        Task DeleteAuthorAsync(string slug);
+        Task<List<AuthorDTO>> GetAllAuthorsAsync( CancellationToken ct);
+        Task<AuthorDTO> GetAuthorBySlugAsync(string slug, CancellationToken ct);
+        Task CreateAuthorAsync(AuthorDTO authorDto, CancellationToken ct);
+        Task UpdateAuthorAsync(AuthorDTO authorDto, string originalSlug, CancellationToken ct);
+        Task DeleteAuthorAsync(string slug, CancellationToken ct);
     }
 }
     

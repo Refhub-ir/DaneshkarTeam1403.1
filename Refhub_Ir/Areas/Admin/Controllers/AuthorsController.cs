@@ -5,22 +5,17 @@ using Refhub_Ir.Service.Interface;
 namespace Refhub_Ir.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class AuthorsController : Controller
+    public class AuthorsController (IAuthorService _authorService): Controller
     {
-        private readonly IAuthorService _authorService;
-        #region Ctor
-        public AuthorsController(IAuthorService authorService)
-        {
-            _authorService = authorService;
-        }
-        #endregion
+     
+      
 
         #region Authors
         [HttpGet]
 
-        public async Task<IActionResult> ListAuthors()
+        public async Task<IActionResult> ListAuthors( CancellationToken ct)
         {
-            var authors = await _authorService.GetAllAuthorsAsync();
+            var authors = await _authorService.GetAllAuthorsAsync(ct);
             return View(authors);
         }
         #endregion
@@ -29,7 +24,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
 
         // GET: /Admin/Authors/Details/john-doe
         [HttpGet]
-        public async Task<IActionResult> Details(string slug)
+        public async Task<IActionResult> Details(string slug, CancellationToken ct)
         {
             var author = await _authorService.GetAuthorBySlugAsync(slug);
 
@@ -51,7 +46,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         // POST: /Admin/Authors/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(AuthorDTO authorDTO)
+        public async Task<IActionResult> Create(AuthorDTO authorDTO, CancellationToken ct)
         {
             if (!ModelState.IsValid)
             {
@@ -60,7 +55,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
 
             try
             {
-                await _authorService.CreateAuthorAsync(authorDTO);
+                await _authorService.CreateAuthorAsync(authorDTO,ct);
                 return RedirectToAction(nameof(ListAuthors));
             }
             catch (Exception ex)
@@ -74,9 +69,9 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         #region AuthorEdit
         [HttpGet]
         // GET: /Admin/Authors/Edit/john-doe
-        public async Task<IActionResult> Edit(string slug)
+        public async Task<IActionResult> Edit(string slug, CancellationToken ct)
         {
-            var author = await _authorService.GetAuthorBySlugAsync(slug);
+            var author = await _authorService.GetAuthorBySlugAsync(slug,ct);
             if (author == null) return NotFound();
 
             var dto = new AuthorDTO
@@ -92,7 +87,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(AuthorDTO authorDto, string originalSlug)
+        public async Task<IActionResult> Edit(AuthorDTO authorDto, string originalSlug, CancellationToken ct)
         {
             if (!ModelState.IsValid)
             {
@@ -102,7 +97,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
 
             try
             {
-                await _authorService.UpdateAuthorAsync(authorDto, originalSlug);
+                await _authorService.UpdateAuthorAsync(authorDto, originalSlug,ct);
                 return RedirectToAction(nameof(ListAuthors));
             }
             catch (Exception ex)
@@ -117,9 +112,9 @@ namespace Refhub_Ir.Areas.Admin.Controllers
 
         #region AuthorDelete
         [HttpGet]
-        public async Task<IActionResult> Delete(string slug)
+        public async Task<IActionResult> Delete(string slug, CancellationToken ct)
         {
-            var author = await _authorService.GetAuthorBySlugAsync(slug);
+            var author = await _authorService.GetAuthorBySlugAsync(slug, ct);
             if (author == null) return NotFound();
             return View(author);
         }
@@ -127,12 +122,12 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         // POST: /Admin/Authors/Delete/john-doe
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string slug)
+        public async Task<IActionResult> DeleteConfirmed(string slug, CancellationToken ct)
         {
-            var author = await _authorService.GetAuthorBySlugAsync(slug);
+            var author = await _authorService.GetAuthorBySlugAsync(slug,ct);
             if (author == null) return NotFound();
 
-            await _authorService.DeleteAuthorAsync(author.Slug);
+            await _authorService.DeleteAuthorAsync(author.Slug,ct);
             return RedirectToAction(nameof(ListAuthors));
         }
         #endregion

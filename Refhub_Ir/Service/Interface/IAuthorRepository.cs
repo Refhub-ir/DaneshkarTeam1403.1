@@ -6,11 +6,11 @@ namespace Refhub_Ir.Service.Interface
 {
     public interface IAuthorRepository
     {
-        Task<List<Author>> GetAllAsync();
-        Task<Author> GetBySlugAsync(string slug);
-        Task AddAsync(Author author);
-        Task UpdateAsync(Author author);
-        Task DeleteAsync(string  slug);
-        Task<bool> SlugExistsAsync(string slug,  string?  excludeSlug = null);
+        Task<List<Author>> GetAllAsync( CancellationToken ct);
+        Task<Author> GetBySlugAsync(string slug, CancellationToken ct);
+        Task AddAsync(Author author, CancellationToken ct);
+        Task UpdateAsync(Author author, CancellationToken ct);
+        Task DeleteAsync(string  slug, CancellationToken ct);
+        Task<bool> SlugExistsAsync( CancellationToken ct,string slug,  string?  excludeSlug = null);
     }
 }
