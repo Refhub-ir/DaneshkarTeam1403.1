@@ -239,7 +239,7 @@ namespace Refhub_Ir.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("Refhub_Ir.Models.Book", b =>
@@ -282,7 +282,7 @@ namespace Refhub_Ir.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("Refhub_Ir.Models.BookAuthor", b =>
@@ -297,7 +297,7 @@ namespace Refhub_Ir.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("BookAuthors");
+                    b.ToTable("BookAuthors", (string)null);
                 });
 
             modelBuilder.Entity("Refhub_Ir.Models.BookKeyword", b =>
@@ -312,7 +312,7 @@ namespace Refhub_Ir.Migrations
 
                     b.HasIndex("KeywordId");
 
-                    b.ToTable("BookKeywords");
+                    b.ToTable("BookKeywords", (string)null);
                 });
 
             modelBuilder.Entity("Refhub_Ir.Models.BookRelation", b =>
@@ -327,7 +327,7 @@ namespace Refhub_Ir.Migrations
 
                     b.HasIndex("RelatedBookId");
 
-                    b.ToTable("BookRelations");
+                    b.ToTable("BookRelations", (string)null);
                 });
 
             modelBuilder.Entity("Refhub_Ir.Models.Category", b =>
@@ -353,7 +353,7 @@ namespace Refhub_Ir.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Refhub_Ir.Models.Keyword", b =>
@@ -371,7 +371,7 @@ namespace Refhub_Ir.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Keywords");
+                    b.ToTable("Keywords", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

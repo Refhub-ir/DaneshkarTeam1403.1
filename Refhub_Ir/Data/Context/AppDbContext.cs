@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Refhub_Ir.Data.Configuration;
 using Refhub_Ir.Data.Models;
 using Refhub_Ir.Models;
+using System.Reflection;
 
 namespace Refhub_Ir.Data.Context
 {
@@ -22,13 +23,7 @@ namespace Refhub_Ir.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
-            modelBuilder.ApplyConfiguration(new AuthorConfiguration());
-            modelBuilder.ApplyConfiguration(new KeywordConfiguration());
-            modelBuilder.ApplyConfiguration(new BookConfiguration());
-            modelBuilder.ApplyConfiguration(new BookAuthorConfiguration());
-            modelBuilder.ApplyConfiguration(new BookKeywordConfiguration());
-            modelBuilder.ApplyConfiguration(new BookRelationConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(AppDbContext)));
             base.OnModelCreating(modelBuilder);
         }
     }
