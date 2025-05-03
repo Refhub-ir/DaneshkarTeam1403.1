@@ -42,7 +42,7 @@ namespace Refhub_Ir.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, error.Description);
+                        ModelState.AddModelError("Email", "ثبت نام با ارور مواجه شده است ");
                     }
                 }
 
@@ -62,11 +62,10 @@ namespace Refhub_Ir.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-
                 if (result.Succeeded)
                     return RedirectToAction("Index", "Home");
 
-                ModelState.AddModelError("", "تلاش برای ورود نامعتبر است.");
+                ModelState.AddModelError("Email", "تلاش برای ورود نامعتبر است.");
             }
             return View(model);
         }
