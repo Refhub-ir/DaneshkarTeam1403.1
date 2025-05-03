@@ -5,23 +5,14 @@ using Refhub_Ir.Service.Interface;
 namespace Refhub_Ir.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ManageKeywordController : Controller
+    public class ManageKeywordController(IKeywordService _keywordService) : Controller
     {
-        #region Constructor
-        private readonly IKeywordService _keywordService;
-
-        public ManageKeywordController(IKeywordService keywordService)
-        {
-            _keywordService = keywordService;
-        }
-
-        #endregion
 
         #region ListKeyword
 
-        public async Task<IActionResult> ListKeyword()
+        public async Task<IActionResult> ListKeyword(CancellationToken ct)
         {
-            var keywords = await _keywordService.GetAllKeywordForListAsync();
+            var keywords = await _keywordService.GetAllKeywordForListAsync(ct);
             return View(keywords);
         }
 
@@ -37,12 +28,12 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateKeyword(CreateKeywordVM model)
+        public async Task<IActionResult> CreateKeyword(CreateKeywordVM model, CancellationToken ct)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
-            await _keywordService.AddKeywordAsync(model);
+            await _keywordService.AddKeywordAsync(model, ct);
             return RedirectToAction("ListKeyword");
         }
 
@@ -52,23 +43,23 @@ namespace Refhub_Ir.Areas.Admin.Controllers
         #region EditKeyword
 
         [HttpGet]
-        public async Task<IActionResult> EditKeyword(int id)
+        public async Task<IActionResult> EditKeyword(int id, CancellationToken ct)
         {
-            var vm = await _keywordService.GetForEdit(id);
+            var vm = await _keywordService.GetForEdit(id, ct);
             if (vm == null) return NotFound();
             return View(vm);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> EditKeyword(EditKeywordVM vm)
+        public async Task<IActionResult> EditKeyword(EditKeywordVM vm,CancellationToken ct)
         {
             if (!ModelState.IsValid)
             {
                 return View(vm);
             }
 
-            await _keywordService.UpdateAsync(vm);
+            await _keywordService.UpdateAsync(vm, ct);
             return RedirectToAction("ListKeyword");
         }
 
@@ -77,9 +68,9 @@ namespace Refhub_Ir.Areas.Admin.Controllers
 
         #region DeleteKeyword
 
-        public async Task<IActionResult> DeleteKeyword(int id)
+        public async Task<IActionResult> DeleteKeyword(int id, CancellationToken ct)
         {
-            await _keywordService.DeleteAsync(id);
+            await _keywordService.DeleteAsync(id,ct);
             return RedirectToAction("ListKeyword");
         }
         #endregion
