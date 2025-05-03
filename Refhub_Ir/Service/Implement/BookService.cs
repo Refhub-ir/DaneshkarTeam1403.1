@@ -10,22 +10,22 @@ namespace Refhub_Ir.Service.Implement
 {
     public class BookService(AppDbContext context, IFileUploaderService uploaderService) : IBookService
     {
-        public async Task<IEnumerable<CategoryDropDownVM>> GetCategories(int Id)
+        public async Task<IEnumerable<CategoryDropDownVM>> GetCategories(int Id, CancellationToken ct)
         {
             var category = context.Categories.AsQueryable();
 
 
 
-            return category.Select(a => new CategoryDropDownVM()
+            return await category.Select(a => new CategoryDropDownVM()
             {
                 Id = a.Id,
                 Name = a.Name,
                 IsSelected = a.Id.Equals(Id)
 
-            }).ToList();
+            }).ToListAsync(ct);
         }
 
-        public async Task<IEnumerable<CategoryDropDownVM>> GetAnothers(List<int> Ids)
+        public async Task<IEnumerable<CategoryDropDownVM>> GetAnothers(List<int> Ids, CancellationToken ct)
         {
             // بررسی ورودی
             if (Ids == null || !Ids.Any())
@@ -36,23 +36,23 @@ namespace Refhub_Ir.Service.Implement
             //todo
             var anothers = context.Authors.AsQueryable();
 
-            return anothers.Select(a => new CategoryDropDownVM()
+            return await anothers.Select(a => new CategoryDropDownVM()
             {
                 Id = a.Id,
                 Name = a.FullName,
                 IsSelected = Ids.Contains(a.Id),
 
-            }).ToList();
+            }).ToListAsync(ct);
         }
 
-        public async Task<bool> CreateAnother(string fullname, string slug)
+        public async Task<bool> CreateAnother(string fullname, string slug, CancellationToken ct)
         {
-            context.Authors.Add(new Author() { Slug = slug, FullName = fullname });
-            context.SaveChanges();
+            await context.Authors.AddAsync(new Author() { Slug = slug, FullName = fullname }, ct);
+            await context.SaveChangesAsync(ct);
             return true;
         }
 
-        public async Task<IEnumerable<BookVM>> GetBooks(string searchText = "")
+        public async Task<IEnumerable<BookVM>> GetBooks(string? searchText, CancellationToken ct)
         {
             var books = context.Books.AsQueryable();
 
@@ -63,20 +63,20 @@ namespace Refhub_Ir.Service.Implement
 
             return await books
                .Select(a => new BookVM()
-            {
-                Id = a.Id,
-                Title = a.Title,
-                UserId = a.UserId,
-                ImagePath = a.ImagePath,
-                Slug = a.Slug,
+               {
+                   Id = a.Id,
+                   Title = a.Title,
+                   UserId = a.UserId,
+                   ImagePath = a.ImagePath,
+                   Slug = a.Slug,
 
-            }).ToListAsync();
+               }).ToListAsync(ct);
         }
 
-        public async Task<UpdateBookVM> GetBookDetialsForUpdate(int Id)
+        public async Task<UpdateBookVM> GetBookDetialsForUpdate(int Id, CancellationToken ct)
         {
             UpdateBookVM model = new UpdateBookVM();
-            var book = context.Books.Include(a => a.BookAuthors).FirstOrDefault(a => a.Id.Equals(Id));
+            var book = await context.Books.Include(a => a.BookAuthors).FirstOrDefaultAsync(a => a.Id.Equals(Id), ct);
             if (book != null)
             {
                 model.Slug = book.Slug;
@@ -92,12 +92,12 @@ namespace Refhub_Ir.Service.Implement
             return model;
         }
 
-        public Task<IEnumerable<BookVM>> GetBook(int Id)
+        public Task<IEnumerable<BookVM>> GetBook(int Id, CancellationToken ct)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<bool> CreateBook(CreateBookVM book)
+        public async Task<bool> CreateBook(CreateBookVM book, CancellationToken ct)
         {
             try
             {
@@ -118,8 +118,8 @@ namespace Refhub_Ir.Service.Implement
                     UserId = book.UserId,
                     BookAuthors = BookAuthors.ToList()
                 };
-                context.Books.Add(_book);
-                context.SaveChanges();
+                await context.Books.AddAsync(_book, ct);
+                await context.SaveChangesAsync(ct);
                 return true;
             }
             catch (Exception e)
@@ -129,12 +129,12 @@ namespace Refhub_Ir.Service.Implement
 
         }
 
-        public async Task<bool> UpdateBook(UpdateBookVM book)
+        public async Task<bool> UpdateBook(UpdateBookVM book, CancellationToken ct)
         {
             try
             {
-             
-                var _book = context.Books.FirstOrDefault(a => a.Id.Equals(book.Id));
+
+                var _book = await context.Books.FirstOrDefaultAsync(a => a.Id.Equals(book.Id), ct);
 
                 _book.CategoryId = book.CategoryId;
                 _book.Slug = book.Slug;
@@ -160,16 +160,16 @@ namespace Refhub_Ir.Service.Implement
                 _book.Title = book.Title;
                 _book.UserId = book.UserId;
                 context.BookAuthors.RemoveRange(context.BookAuthors.Where(a => a.BookId.Equals(book.Id)));
-                context.SaveChanges();
+                await context.SaveChangesAsync(ct);
                 var BookAuthors = book.AnotherId.Select(a => new BookAuthor()
                 {
                     AuthorId = a
                 });
-               
+
                 _book.BookAuthors = BookAuthors.ToList();
 
                 context.Books.Update(_book);
-                context.SaveChanges();
+                await context.SaveChangesAsync(ct);
                 return true;
             }
             catch (Exception e)
@@ -180,7 +180,7 @@ namespace Refhub_Ir.Service.Implement
 
         }
 
-        public async Task<bool> DeleteBook(int Id)
+        public async Task<bool> DeleteBook(int Id, CancellationToken ct)
         {
             var book = context.Books.FirstOrDefault(a => a.Id.Equals(Id));
             if (book != null)
@@ -190,7 +190,7 @@ namespace Refhub_Ir.Service.Implement
                 await uploaderService.DeleteFile(FolderNameStatic.GetDirectoryBooks,
                     FolderNameStatic.GetDirectoryImages, book.FilePath);
                 context.Books.Remove(book);
-                context.SaveChanges();
+                await context.SaveChangesAsync(ct);
                 return true;
             }
 
