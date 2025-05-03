@@ -15,11 +15,12 @@ namespace Refhub_Ir.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
         #region Register
         [HttpGet]
-        public IActionResult Register() => View();
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        public IActionResult Register() => View(); 
+        
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -30,8 +31,7 @@ namespace Refhub_Ir.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    string url = "/Account/Login";
-                    return Redirect(url);
+                    return RedirectToAction("Login");
                 }
 
                 foreach (var error in result.Errors)
@@ -72,8 +72,8 @@ namespace Refhub_Ir.Controllers
         #endregion
 
         #region Logout
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+                    
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
