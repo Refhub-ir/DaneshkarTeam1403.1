@@ -10,8 +10,8 @@ namespace Refhub_Ir.Components.Handlers.Admin.Category
 
         public async Task<IViewComponentResult> InvokeAsync(int Id)
         {
-
-            return View("/Components/Views/Admin/Category/DropDownCategoryAdminPanel.cshtml", await bookService.GetCategories(Id));
+            string viewPath = this.GetDefaultViewPath();
+            return View(viewPath, await bookService.GetCategories(Id));
         }
 
     }

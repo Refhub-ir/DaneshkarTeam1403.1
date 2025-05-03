@@ -10,8 +10,8 @@ namespace Refhub_Ir.Components.Handlers.Admin.Another
 
         public async Task<IViewComponentResult> InvokeAsync(List<int> Ids)
         {
-
-            return View("/Components/Views/Admin/Another/DropDownAnotherAdminPanel.cshtml", await bookService.GetAnothers(Ids));
+            string viewPath = this.GetDefaultViewPath();
+            return View(viewPath, await bookService.GetAnothers(Ids));
         }
 
     }
