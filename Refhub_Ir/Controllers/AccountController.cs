@@ -2,49 +2,26 @@
 using Microsoft.AspNetCore.Mvc;
 using Refhub_Ir.Data.Models;
 using Refhub_Ir.Models.Users;
+using Refhub_Ir.Service.Interface;
 
 namespace Refhub_Ir.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController(IUserService userService) : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-        }
         #region Register
         [HttpGet]
         public IActionResult Register() => View();
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterVM model)
+        public async Task<IActionResult> Register(RegisterVM model,CancellationToken ct)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    string url = "/Account/Login";
-                    return Redirect(url);
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    if (error.Code == "DuplicateUserName" || error.Code == "DuplicateEmail")
-                    {
-                        ModelState.AddModelError("Email", "ایمیل وارد شده قبلاً ثبت شده است.");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("Email", "ثبت نام با ارور مواجه شده است ");
-                    }
-                }
+                var result = await userService.Register(model, ct);
+                if (!result.IsError)
+                    return RedirectToAction(nameof(Login));
+                ModelState.AddModelError("Email", string.Join(',', result.Errors.Select(a => a.Code)));
 
             }
             return View(model);
@@ -57,15 +34,14 @@ namespace Refhub_Ir.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginVM model)
+        public async Task<IActionResult> Login(LoginVM model, CancellationToken ct)
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                var result = await userService.Login(model, ct);
+                if (!result.IsError)
                     return RedirectToAction("Index", "Home");
-
-                ModelState.AddModelError("Email", "تلاش برای ورود نامعتبر است.");
+                ModelState.AddModelError("Email", string.Join(',', result.Errors.Select(a=>a.Code)));
             }
             return View(model);
         }
@@ -74,9 +50,9 @@ namespace Refhub_Ir.Controllers
         #region Logout
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Logout(CancellationToken ct)
         {
-            await _signInManager.SignOutAsync();
+            await userService.Logout(ct);
             return RedirectToAction("Index", "Home");
         }
         #endregion
