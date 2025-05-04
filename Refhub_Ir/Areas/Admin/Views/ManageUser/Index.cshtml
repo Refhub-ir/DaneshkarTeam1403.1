@@ -1,0 +1,76 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@model IEnumerable<Refhub_Ir.Models.Users.UserListAdminVM>
+
+@{
+	ViewData["Title"] = "مدیریت کاربران";
+}
+
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+				<h3 class="card-title"> ‌@ViewData["Title"]</h3>
+            </div>
+            <div class="card-footer clearfix">
+             @*    <a asp-action="CreateKeyword" class="btn btn-primary">افزودن کلیدواژه جدید</a> *@
+            </div>
+            <div class="card-body">
+	            <table class="table table-bordered table-striped">
+		            <thead>
+		            <tr>
+			            <th>نام کامل</th>
+			            <th>نام کاربری</th>
+			            <th>ایمیل</th>
+			           @*  <th>وضعیت</th> *@
+			            <th>عملیات</th>
+		            </tr>
+		            </thead>
+		            <tbody>
+		            @foreach (var user in Model)
+		            {
+			            <tr>
+				            <td>@user.FullName</td>
+				            <td>@user.UserName</td>
+				            <td>@user.Email</td>
+@* 				            <td>
+					            @if (user.IsAdmin)
+					            {
+						            <span class="text-success"></span>
+					            }
+					            else
+					            {
+										<span class="text-danger"></span>
+					            }
+				            </td> *@
+				            <td>
+									<a href="@Url.Action("AddAdminRole", "ManageUser", new { id = user.Id })" class="btn btn-sm btn-@(user.IsAdmin?"danger":"warning")">
+										@(user.IsAdmin?"غیرفعال کردن مقام مدیر":"افزودن مقام مدیر")
+					            </a>
+					      </td>
+			            </tr>
+		            }
+		            </tbody>
+	            </table>
+            </div>
+            <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                    <li class="page-item"><a class="page-link" href="#">«</a></li>
+                    <li class="page-item"><a class="page-link" href="#">۱</a></li>
+                    <li class="page-item"><a class="page-link" href="#">۲</a></li>
+                    <li class="page-item"><a class="page-link" href="#">۳</a></li>
+                    <li class="page-item"><a class="page-link" href="#">»</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+
