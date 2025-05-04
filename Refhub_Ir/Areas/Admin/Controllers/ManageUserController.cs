@@ -7,18 +7,14 @@ namespace Refhub_Ir.Areas.Admin.Controllers
     [Area("Admin")]
     public class ManageUserController(IUserService userService) : Controller
     {
-        public async Task<IActionResult> Index(string? name,CancellationToken ct)
-        {
-          
+        public async Task<IActionResult> Index(string? name, CancellationToken ct)
+            => View(await userService.GetListUserAdminPanelAsync(name, ct));
 
-            return View(await userService.GetListUserAdminPanelAsync(name,ct));
-          
-        }
 
         public async Task<IActionResult> AddAdminRole(string id, CancellationToken ct)
         {
 
-            var res = await userService.AddToRoleForUserInAdminPanelAsync(id, ct);
+           await userService.AddToRoleForUserInAdminPanelAsync(id, ct);
             return RedirectToAction(nameof(Index));
 
         }
