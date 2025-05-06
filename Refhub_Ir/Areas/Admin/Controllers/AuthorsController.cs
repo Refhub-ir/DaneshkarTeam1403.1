@@ -7,10 +7,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
     [Area("Admin")]
     public class AuthorsController (IAuthorService _authorService): Controller
     {
-     
-      
-
-        #region Authors
+        #region AuthorList
         [HttpGet]
 
         public async Task<IActionResult> ListAuthors( CancellationToken ct)
