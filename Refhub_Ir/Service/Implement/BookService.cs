@@ -1,9 +1,11 @@
 ﻿using Azure;
 using Microsoft.EntityFrameworkCore;
+using Refhub_Ir.Areas.Admin.DTOs;
 using Refhub_Ir.Data.Context;
 using Refhub_Ir.Data.Models;
 using Refhub_Ir.Models;
 using Refhub_Ir.Models.Books;
+using Refhub_Ir.Models.Categories;
 using Refhub_Ir.Service.Interface;
 using Refhub_Ir.Tools.Static;
 using System.Drawing.Printing;
@@ -235,7 +237,7 @@ namespace Refhub_Ir.Service.Implement
             page = Math.Max(1, Math.Min(page, Math.Max(1, totalPages)));
 
 
-            
+
             var books = await booksquery
                               .OrderBy(x => x.Title)
                               .Skip((page - 1) * pageSize)
@@ -251,12 +253,18 @@ namespace Refhub_Ir.Service.Implement
                               .ToListAsync(cancellationToken: ct);
 
             var authors = await context.Authors
-                                        .OrderBy(a => a.FullName)
+                                        .OrderBy(a => a.FullName).Select(x => new AuthorVM
+                                        {
+                                            FullName = x.FullName,
+                                        })
                                         .ToListAsync(cancellationToken: ct);
 
 
             var categories = await context.Categories
-                                           .OrderBy(c => c.Name)
+                                           .OrderBy(c => c.Name).Select(x => new CategoryVM
+                                           {
+                                               Name = x.Name
+                                           })
                                            .ToListAsync(cancellationToken: ct);
 
             return new ListBooksVM
