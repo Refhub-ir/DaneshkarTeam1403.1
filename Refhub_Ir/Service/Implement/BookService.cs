@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Refhub_Ir.Data.Context;
-using Refhub_Ir.Data.Models;
-using Refhub_Ir.Models;
 using Refhub_Ir.Models.Books;
 using Refhub_Ir.Service.Interface;
 using Refhub_Ir.Tools.Static;
@@ -195,6 +193,29 @@ namespace Refhub_Ir.Service.Implement
             }
 
             return false;
+        }
+
+        public async Task<BookDetails> GetBookDetailsBySlugAsync(string slug, CancellationToken ct)
+        {
+            var book = await context.Books
+                .Include(b => b.BookAuthors).ThenInclude(ba => ba.Author)
+                .Include(b => b.BookKeywords).ThenInclude(bk => bk.Keyword)
+                .Include(b => b.RelatedTo).ThenInclude(r => r.RelatedBook)
+                .FirstOrDefaultAsync(b => b.Slug == slug, ct);
+
+            if (book == null) return null;
+
+            return new BookDetails
+            {
+                Title = book.Title,
+                Slug = book.Slug,
+                FilePath = book.FilePath,
+                ImagePath = book.ImagePath,
+                BookAuthors = book.BookAuthors,
+                BookKeywords = book.BookKeywords,
+                RelatedTo = book.RelatedTo,
+                RelatedFrom = book.RelatedFrom
+            };
         }
     }
 }
