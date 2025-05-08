@@ -55,17 +55,7 @@
 										</td>
 									</tr>
 								}
-								@foreach (var book in Model)
-								{
-									<tr>
-										<td>@book.Title</td>
-										<td>
-											<a asp-controller="Book" asp-action="Details" asp-route-slug="@book.Slug" class="btn btn-primary">
-												مشاهده جزئیات
-											</a>
-										</td>
-									</tr>
-								}
+					
 
 							</tbody>
 						</table>

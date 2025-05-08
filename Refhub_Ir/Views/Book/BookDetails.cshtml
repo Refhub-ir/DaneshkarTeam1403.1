@@ -22,7 +22,7 @@
                         @if (!string.IsNullOrEmpty(Model.ImagePath))
                         {
                             <div class="mb-4">
-                                <img src="@Url.Content(Model.ImagePath)" alt="@(Model.Title ?? "کتاب")" class="img-fluid rounded" style="max-width: 300px; max-height: 400px;" />
+                                <img src="@Url.Content(Model.ImagePath.ConvertForBookPathImage())" alt="@(Model.Title ?? "کتاب")" class="img-fluid rounded" style="max-width: 300px; max-height: 400px;" />
                             </div>
                         }
                         else
