@@ -212,7 +212,7 @@ namespace Refhub_Ir.Service.Implement
                 Slug = book.Slug,
                 FilePath = book.FilePath,
                 ImagePath = book.ImagePath,
-                BookAuthors = book.BookAuthors.Select(ba => new BookAuthorVM
+                BookAuthorsVM = book.BookAuthors.Select(ba => new BookAuthorVM
                 {
                     BookId = ba.BookId,
                     AuthorId = ba.AuthorId,
@@ -222,7 +222,7 @@ namespace Refhub_Ir.Service.Implement
                         FullName = ba.Author.FullName
                     }
                 }).ToList(),
-                BookKeywords = book.BookKeywords.Select(bk => new BookKeywordVM
+                BookKeywordsVM = book.BookKeywords.Select(bk => new BookKeywordVM
                 {
                     BookId = bk.BookId,
                     KeywordId = bk.KeywordId,
@@ -232,7 +232,7 @@ namespace Refhub_Ir.Service.Implement
                         Word = bk.Keyword.Word
                     }
                 }).ToList(),
-                RelatedTo = book.RelatedTo.Select(r => new BookRelationVM
+                RelatedToVM = book.RelatedTo.Select(r => new BookRelationVM
                 {
                     BookId = r.BookId,
                     RelatedBookId = r.RelatedBookId,
@@ -243,7 +243,7 @@ namespace Refhub_Ir.Service.Implement
                         Slug = r.RelatedBook.Slug
                     }
                 }).ToList(),
-                RelatedFrom = book.RelatedFrom.Select(r => new BookRelationVM
+                RelatedFromVM = book.RelatedFrom.Select(r => new BookRelationVM
                 {
                     BookId = r.BookId,
                     RelatedBookId = r.RelatedBookId,
