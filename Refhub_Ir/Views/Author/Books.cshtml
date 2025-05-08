@@ -1,0 +1,87 @@
+﻿@using Refhub_Ir.Models.Books
+@model BooksList_VM
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "لیست کتاب ها ";
+}
+
+<section class="bg-dark align-items-center d-flex" style="background:url(assets/images/pattern/04.png) no-repeat center center; background-size:cover;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-white fs-2">کتاب‌های @Model.AuthorFilter</h1>
+                <div class="d-flex">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-dark breadcrumb-dots mb-0">
+                            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">صفحه اصلی</a></li>
+                            <li class="breadcrumb-item"><a asp-controller="Author" asp-action="Index">نویسنده‌ها</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">@Model.AuthorFilter</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="pt-5">
+    <div class="container">
+        <!-- Search option START -->
+        <div class="row mb-4 align-items-center">
+            <form method="get" asp-action="Books" asp-route-slug="@Model.AuthorSlug" class="row g-3">
+                <!-- فقط سرچ -->
+                <div class="col-sm-9 col-xl-10">
+                    <input type="text" name="searchText" value="@Model.SearchText" class="form-control" placeholder="جستجوی کتاب‌های @Model.AuthorFilter" />
+                </div>
+                <div class="col-sm-3 col-xl-2 d-grid">
+                    <button type="submit" class="btn btn-primary">جستجو</button>
+                </div>
+            </form>
+        </div>
+        <!-- Search option END -->
+
+        <!-- Book list START -->
+        <div class="row g-4 justify-content-center">
+            @foreach (var item in Model.Books)
+            {
+                <div class="col-lg-10 col-xxl-6">
+                    <div class="card rounded overflow-hidden shadow">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="~/Files/Images/Books/@item.ImagePath" alt="@item.Title">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h5 class="card-title mb-0 fw-normal">@item.Title</h5>
+                                        <a href="#"><i class="fas fa-heart text-danger"></i></a>
+                                    </div>
+                                    <p class="mb-0">
+                                        نویسنده:
+                                        <a asp-controller="Author" asp-action="Books" asp-route-slug="@item.AuthorSlug">
+                                            @item.AuthorFullName
+                                        </a>
+                                    </p>
+                                    <!-- Info -->
+                                    <ul class="list-inline mb-1">
+                                        <li class="list-inline-item h6 fw-light mb-1 mb-sm-0"><i class="far fa-clock text-danger me-2"></i>6ساعت</li>
+                                        <li class="list-inline-item h6 fw-light mb-1 mb-sm-0"><i class="fas fa-table text-orange me-2"></i>82 ویدیو</li>
+                                    </ul>
+                                    <ul class="list-inline mb-0">
+                                        <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
+                                        <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
+                                        <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
+                                        <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
+                                        <li class="list-inline-item me-0 small"><i class="fas fa-star-half-alt text-warning"></i></li>
+                                        <li class="list-inline-item ms-2 h6 fw-light">4.5/5.0</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
