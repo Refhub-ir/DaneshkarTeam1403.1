@@ -27,6 +27,7 @@ namespace Refhub_Ir.Controllers
         [HttpGet]
         public async Task<IActionResult> DownloadFile(string filePath, CancellationToken ct)
         {
+            filePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot{filePath}");
             if (string.IsNullOrEmpty(filePath) || !System.IO.File.Exists(filePath))
                 return NotFound();
             var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath, ct);

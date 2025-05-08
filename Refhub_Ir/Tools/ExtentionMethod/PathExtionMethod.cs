@@ -11,5 +11,12 @@ namespace Refhub_Ir.Tools.ExtentionMethod
             return
                 $"/{FolderNameStatic.GetDirectoryFiles}/{FolderNameStatic.GetDirectoryImages}/{FolderNameStatic.GetDirectoryBooks}/{imageName}";
         }
+        public static string ConvertForBookPathFile(this string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+                return string.Empty;
+            return
+                $"\\{FolderNameStatic.GetDirectoryFiles}\\{FolderNameStatic.GetDirectoryImages}\\{FolderNameStatic.GetDirectoryBooks}\\{fileName}";
+        }
     }
 }
