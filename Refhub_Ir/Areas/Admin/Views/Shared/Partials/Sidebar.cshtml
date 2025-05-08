@@ -2,28 +2,28 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="/index3.html" class="brand-link">
-            <img src="/Admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+@*             <img src="/Admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> *@
             <span class="brand-text font-weight-light">پنل مدیریت</span>
         </a>
 
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+@*             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                     <img src="https://www.gravatar.com/avatar/52f0fbcbedee04a121cba8dad1174462?s=200&d=mm&r=g" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">حسام موسوی</a>
                 </div>
-            </div>
+            </div> *@
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
                     <!-- داشبورد -->
-                    <li class="nav-item has-treeview">
+@*                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>داشبوردها<i class="right fa fa-angle-left"></i></p>
@@ -33,18 +33,18 @@
                             <li class="nav-item"><a href="/index2.html" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>داشبورد دوم</p></a></li>
                             <li class="nav-item"><a href="/index3.html" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>داشبورد سوم</p></a></li>
                         </ul>
-                    </li>
+                    </li> *@
 
                     <!-- ویجت -->
-                    <li class="nav-item">
+@*                     <li class="nav-item">
                         <a href="/widgets.html" class="nav-link">
                             <i class="nav-icon fa fa-th"></i>
                             <p>ویجت‌ها<span class="right badge badge-danger">جدید</span></p>
                         </a>
                     </li>
-
+ *@
                     <!-- جداول -->
-                    <li class="nav-item has-treeview">
+@*                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-table"></i>
                             <p>جداول<i class="fa fa-angle-left right"></i></p>
@@ -53,40 +53,174 @@
                             <li class="nav-item"><a href="/tables/simple.html" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>جداول ساده</p></a></li>
                             <li class="nav-item"><a href="/tables/data.html" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>جداول داده</p></a></li>
                         </ul>
-                    </li>
+                    </li> *@
 
                     <!-- ✅ مدیریت کلیدواژه‌ها -->
-                    <li class="nav-item">
+@*                     <li class="nav-item">
                         <a href="/Admin/ManageKeyword/ListKeyword" class="nav-link">
                             <i class="nav-icon fa fa-key"></i>
                             <p>مدیریت کلیدواژه‌ها</p>
                         </a>
                     </li>
+ *@
+                    
 
                     <!-- مثال‌ها -->
-                    <li class="nav-header">مثال‌ها</li>
+                    <li class="nav-header">‌</li>
 
-                    <li class="nav-item">
+                 @* <li class="nav-item">
                         <a href="/calendar.html" class="nav-link">
                             <i class="nav-icon fa fa-calendar"></i>
                             <p>تقویم <span class="badge badge-info right">2</span></p>
                         </a>
+                    </li> *@
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-book"></i>
+                            <p>
+                                 کتاب ها
+                                <i class="fa fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+
+                            <li class="nav-item">
+                                <a asp-area="Admin" asp-controller="ManageBook" asp-action="Index"
+                                   class="nav-link active">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    صفحه اصلی مدیریت
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a asp-area="Admin" asp-controller="ManageBook" asp-action="Create"
+                                   class="nav-link active">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    ایجاد کتاب
+                                </a>
+                            </li>
+                        </ul>
+
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-tags"></i>
+                            <p>
+                                 دسته بندی ها
+                                <i class="fa fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+
+                            <li class="nav-item">
+                                <a asp-area="Admin" asp-controller="ManageCategory" asp-action="Index"
+                                   class="nav-link active">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    صفحه اصلی مدیریت
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a asp-area="Admin" asp-controller="ManageCategory" asp-action="Create"
+                                   class="nav-link active">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    ایجاد دسته بندی
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fa fa-envelope-o"></i>
-                            <p>ایمیل‌ باکس<i class="fa fa-angle-left right"></i></p>
+                            <i class="nav-icon fa fa-pencil"></i>
+                            <p>
+                                 نویسنده ها
+                                <i class="fa fa-angle-left right"></i>
+                            </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item"><a href="/mailbox/mailbox.html" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>اینباکس</p></a></li>
-                            <li class="nav-item"><a href="/mailbox/compose.html" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>ایجاد</p></a></li>
-                            <li class="nav-item"><a href="/mailbox/read-mail.html" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>خواندن</p></a></li>
+
+                            <li class="nav-item">
+                                <a asp-area="Admin" asp-controller="Authors" asp-action="ListAuthors"
+                                   class="nav-link active">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    صفحه اصلی مدیریت
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a asp-area="Admin" asp-controller="Authors" asp-action="Create"
+                                   class="nav-link active">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    ایجاد نویسنده
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-key"></i>
+                            <p>
+                                 کلید واژه
+                                <i class="fa fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+
+                            <li class="nav-item">
+                                <a asp-area="Admin" asp-controller="ManageKeyword" asp-action="ListKeyword"
+                                   class="nav-link active">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    صفحه اصلی مدیریت
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a asp-area="Admin" asp-controller="ManageKeyword" asp-action="CreateKeyword"
+                                   class="nav-link active">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    ایجاد کلید واژه
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                 کاربر ها
+                                <i class="fa fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+
+                            <li class="nav-item">
+                                <a asp-area="Admin" asp-controller="ManageUser" asp-action="Index"
+                                   class="nav-link active">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    صفحه اصلی مدیریت
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a asp-area="Admin" asp-controller="ManageUser" asp-action="AddAdminRole"
+                                   class="nav-link active">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    ایجاد نقش کاربر
+                                </a>
+                            </li>
+
                         </ul>
                     </li>
 
                     <!-- صفحات -->
-                    <li class="nav-item has-treeview">
+@*                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-book"></i>
                             <p>صفحات<i class="fa fa-angle-left right"></i></p>
@@ -98,10 +232,10 @@
                             <li class="nav-item"><a href="/examples/register.html" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>عضویت</p></a></li>
                             <li class="nav-item"><a href="/examples/lockscreen.html" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>قفل صفحه</p></a></li>
                         </ul>
-                    </li>
+                    </li> *@
 
                     <!-- بیشتر -->
-                    <li class="nav-item has-treeview">
+@*                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-plus-square-o"></i>
                             <p>بیشتر<i class="fa fa-angle-left right"></i></p>
@@ -111,14 +245,14 @@
                             <li class="nav-item"><a href="/examples/500.html" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>ارور 500</p></a></li>
                             <li class="nav-item"><a href="/examples/blank.html" class="nav-link"><i class="fa fa-circle-o nav-icon"></i><p>صفحه خالی</p></a></li>
                         </ul>
-                    </li>
+                    </li> *@
 
                     <!-- برچسب‌ها -->
-                    <li class="nav-header">برچسب‌ها</li>
+@*                     <li class="nav-header">برچسب‌ها</li>
                     <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fa fa-circle-o text-danger"></i><p>مهم</p></a></li>
                     <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fa fa-circle-o text-warning"></i><p>هشدار</p></a></li>
                     <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fa fa-circle-o text-info"></i><p>اطلاعات</p></a></li>
-
+ *@
                 </ul>
             </nav>
         </div>
