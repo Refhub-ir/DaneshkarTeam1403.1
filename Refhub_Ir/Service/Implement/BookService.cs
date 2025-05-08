@@ -1,13 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore;
+using Refhub_Ir.Areas.Admin.DTOs;
 using Refhub_Ir.Data.Context;
 using Refhub_Ir.Models.Books;
 using Refhub_Ir.Models.DTO;
+using Refhub_Ir.Models.Categories;
 using Refhub_Ir.Service.Interface;
 using Refhub_Ir.Tools.Static;
+using System.Drawing.Printing;
 
 namespace Refhub_Ir.Service.Implement
 {
-    public class BookService(AppDbContext context, IFileUploaderService uploaderService) : IBookService
+    public class BookService(
+                             AppDbContext context,
+                             IFileUploaderService uploaderService) : IBookService
     {
         public async Task<IEnumerable<CategoryDropDownVM>> GetCategoriesAsync(int Id, CancellationToken ct)
         {
@@ -254,6 +260,83 @@ namespace Refhub_Ir.Service.Implement
                         Slug = r.RelatedBook.Slug
                     }
                 }).ToList()
+            };
+        }
+
+        public async Task<ListBooksVM> GetListAsync(string searchText, string authorFilter, string categoryFilter, int pageSize, int page, CancellationToken ct)
+        {
+            var booksquery = context.Books
+                                    .Include(b => b.Category)
+                                    .Include(x => x.BookAuthors)
+                                    .ThenInclude(x => x.Author)
+                                    .AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                searchText = searchText.Trim().ToLower();
+                booksquery = booksquery.Where(b => b.Title.ToLower().Contains(searchText));
+            }
+
+            if (!string.IsNullOrEmpty(authorFilter))
+            {
+                var normalizedAuthor = authorFilter.Trim().ToLower();
+                booksquery = booksquery.Where(x => x.BookAuthors.Any(c => c.Author.FullName.ToLower().Contains(normalizedAuthor)));
+            }
+
+            if (!string.IsNullOrEmpty(categoryFilter))
+            {
+                var normalizedCategory = categoryFilter.Trim().ToLower();
+                booksquery = booksquery.Where(x => x.Category.Name.ToLower().Contains(normalizedCategory));
+            }
+
+
+            var totalItems = await booksquery.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+
+            page = Math.Max(1, Math.Min(page, Math.Max(1, totalPages)));
+
+
+
+            var books = await booksquery
+                              .OrderBy(x => x.Title)
+                              .Skip((page - 1) * pageSize)
+                              .Take(pageSize)
+                              .Select(a => new BookVM
+                              {
+                                  Id = a.Id,
+                                  Title = a.Title,
+                                  Slug = a.Slug,
+                                  ImagePath = a.ImagePath,
+                                  UserId = a.UserId
+                              })
+                              .ToListAsync(cancellationToken: ct);
+
+            var authors = await context.Authors
+                                        .OrderBy(a => a.FullName).Select(x => new AuthorVM
+                                        {
+                                            FullName = x.FullName,
+                                        })
+                                        .ToListAsync(cancellationToken: ct);
+
+
+            var categories = await context.Categories
+                                           .OrderBy(c => c.Name).Select(x => new CategoryVM
+                                           {
+                                               Name = x.Name
+                                           })
+                                           .ToListAsync(cancellationToken: ct);
+
+            return new ListBooksVM
+            {
+                Books = books,
+                Categories = categories,
+                Authors = authors,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                SearchText = searchText,
+                AuthorFilter = authorFilter,
+                CategoryFilter = categoryFilter
             };
         }
     }

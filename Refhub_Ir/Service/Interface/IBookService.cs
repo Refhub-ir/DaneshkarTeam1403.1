@@ -13,6 +13,9 @@ namespace Refhub_Ir.Service.Interface
         Task<bool> CreateBookAsync(CreateBookVM book, CancellationToken ct);
         Task<bool> UpdateBookAsync(UpdateBookVM book, CancellationToken ct);
         Task<bool> DeleteBookAsync(int Id, CancellationToken ct);
+
+
+        Task<ListBooksVM> GetListAsync(string searchText, string authorFilter, string categoryFilter, int pageSize, int page, CancellationToken ct);
         Task<BookDetailsVM> GetBookDetailsBySlugAsync(string slug, CancellationToken ct);
     }
 }

@@ -1,5 +1,4 @@
-﻿
-@model Refhub_Ir.Models.Keywords.EditKeywordVM
+﻿@model Refhub_Ir.Models.Keywords.EditKeywordVM
 @{
     ViewData["Title"] = "ویرایش کلیدواژه";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -22,12 +21,12 @@
                 <h3 class="card-title">فرم ویرایش کلیدواژه</h3>
             </div>
             <form asp-area="Admin" asp-controller="ManageKeyword" asp-action="EditKeyword" method="post">
+                <div asp-validation-summary="All" class="text-danger px-5"></div>
                 <div class="card-body">
                     <input type="hidden" asp-for="Id" />
                     <div class="form-group">
                         <label asp-for="Word">کلمه کلیدی</label>
                         <input asp-for="Word" class="form-control" />
-                        <span asp-validation-for="Word" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="card-footer">
@@ -38,3 +37,6 @@
         </div>
     </div>
 </section>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

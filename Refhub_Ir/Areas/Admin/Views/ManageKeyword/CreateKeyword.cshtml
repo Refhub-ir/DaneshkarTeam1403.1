@@ -23,11 +23,12 @@
                 <h3 class="card-title">فرم افزودن کلیدواژه جدید</h3>
             </div>
             <form asp-area="Admin" asp-controller="ManageKeyword" asp-action="CreateKeyword" method="post">
+               <div asp-validation-summary="All" class="text-danger px-5" ></div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label asp-for="Word">کلمه کلیدی</label>
+                        <label asp-for="Word">کلید واژه</label>
                         <input asp-for="Word" class="form-control" placeholder="مثلاً: آموزش، ASP.NET، سی‌شارپ" />
-                        <span asp-validation-for="Word" class="text-danger"></span>
+                       @*  <span asp-validation-for="Word" class="text-danger"></span> *@
                     </div>
                 </div>
                 <div class="card-footer">
@@ -38,3 +39,6 @@
         </div>
     </div>
 </section>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

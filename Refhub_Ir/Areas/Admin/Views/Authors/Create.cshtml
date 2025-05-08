@@ -14,15 +14,14 @@
                 </div>
                 <div class="card-body">
                     <form asp-area="Admin" asp-controller="Authors" asp-action="Create" method="post">
+                        <div asp-validation-summary="All" class="text-danger px-5"></div>
                         <div class="form-group">
                             <label asp-for="FullName" class="control-label">نام نویسنده</label>
                             <input asp-for="FullName" class="form-control" />
-                            <span asp-validation-for="FullName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Slug" class="control-label">نام اسلاگ</label>
                             <input asp-for="Slug" class="form-control" />
-                            <span asp-validation-for="Slug" class="text-danger"></span>
                         </div>
                         <button type="submit" class="btn btn-success btn-block mt-3">ثبت نویسنده</button>
                         <a asp-area="Admin" asp-controller="Authors" asp-action="ListAuthors" class="btn btn-primary btn-btn success">بازگشت به لیست</a>
@@ -32,3 +31,6 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}	

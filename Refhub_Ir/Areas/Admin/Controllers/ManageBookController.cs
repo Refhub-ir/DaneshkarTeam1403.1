@@ -15,6 +15,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
 
         [HttpGet]
         public IActionResult Create() => View();
+
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateBookVM model, CancellationToken ct)
         {
