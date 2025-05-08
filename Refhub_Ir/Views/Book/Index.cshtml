@@ -110,6 +110,15 @@ Page content START -->
                                         <!-- Wishlist icon -->
                                         <a href="#"><i class="fas fa-heart text-danger"></i></a>
                                     </div>
+
+                                    <!-- author and slug -->
+                                    <p class="mb-0">
+                                        نویسنده:
+                                        <a asp-controller="Author" asp-action="Books" asp-route-slug="@item.AuthorSlug">
+                                            @item.AuthorFullName
+                                        </a>
+                                    </p>
+
                                     <!-- Content -->
                                     <!-- Info -->
                                     <ul class="list-inline mb-1">
