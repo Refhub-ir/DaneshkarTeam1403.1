@@ -212,7 +212,7 @@ namespace Refhub_Ir.Service.Implement
                 Slug = book.Slug,
                 FilePath = book.FilePath,
                 ImagePath = book.ImagePath,
-                BookAuthors = book.BookAuthors.Select(ba => new BookAuthorDTO
+                BookAuthors = book.BookAuthors.Select(ba => new BookAuthorVM
                 {
                     BookId = ba.BookId,
                     AuthorId = ba.AuthorId,
@@ -222,7 +222,7 @@ namespace Refhub_Ir.Service.Implement
                         FullName = ba.Author.FullName
                     }
                 }).ToList(),
-                BookKeywords = book.BookKeywords.Select(bk => new BookKeywordDTO
+                BookKeywords = book.BookKeywords.Select(bk => new BookKeywordVM
                 {
                     BookId = bk.BookId,
                     KeywordId = bk.KeywordId,
@@ -232,22 +232,22 @@ namespace Refhub_Ir.Service.Implement
                         Word = bk.Keyword.Word
                     }
                 }).ToList(),
-                RelatedTo = book.RelatedTo.Select(r => new BookRelationDTO
+                RelatedTo = book.RelatedTo.Select(r => new BookRelationVM
                 {
                     BookId = r.BookId,
                     RelatedBookId = r.RelatedBookId,
-                    RelatedBook = new BookDTO
+                    RelatedBook = new BookVM
                     {
                         Id = r.RelatedBook.Id,
                         Title = r.RelatedBook.Title,
                         Slug = r.RelatedBook.Slug
                     }
                 }).ToList(),
-                RelatedFrom = book.RelatedFrom.Select(r => new BookRelationDTO
+                RelatedFrom = book.RelatedFrom.Select(r => new BookRelationVM
                 {
                     BookId = r.BookId,
                     RelatedBookId = r.RelatedBookId,
-                    RelatedBook = new BookDTO
+                    RelatedBook = new BookVM
                     {
                         Id = r.RelatedBook.Id,
                         Title = r.RelatedBook.Title,
