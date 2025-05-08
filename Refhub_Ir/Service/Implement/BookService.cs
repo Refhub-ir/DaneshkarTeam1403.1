@@ -24,7 +24,7 @@ namespace Refhub_Ir.Service.Implement
             return await category.Select(a => new CategoryDropDownVM()
             {
                 Id = a.Id,
-                Name = a.Name,
+                CategoryName = a.Name,
                 IsSelected = a.Id.Equals(Id)
 
             }).ToListAsync(ct);
@@ -44,7 +44,7 @@ namespace Refhub_Ir.Service.Implement
             return await anothers.Select(a => new CategoryDropDownVM()
             {
                 Id = a.Id,
-                Name = a.FullName,
+                CategoryName = a.FullName,
                 IsSelected = Ids.Contains(a.Id),
 
             }).ToListAsync(ct);

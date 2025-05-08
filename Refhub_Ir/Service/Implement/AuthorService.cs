@@ -1,6 +1,7 @@
 ﻿using Refhub_Ir.Areas.Admin.DTOs;
 using Refhub_Ir.Data.Models;
 using Refhub_Ir.Models;
+using Refhub_Ir.Models.Books;
 using Refhub_Ir.Service.Interface;
 
 namespace Refhub_Ir.Service.Implement
@@ -22,6 +23,39 @@ namespace Refhub_Ir.Service.Implement
                 FullName = a.FullName,
                 Slug = a.Slug
             }).ToList();
+        }
+
+        public async Task<BooksList_VM> GetAllAuthorsBooksAsync(string slug, CancellationToken ct)
+        {
+            var viewModel = new BooksList_VM();
+            var author =await _authorRepository.GetAllAuthorsBooksAsync(slug, ct);
+
+            if (author == null)
+                return viewModel;
+
+            var books = author.BookAuthors.Select(ba => ba.Book).ToList();
+
+            var bookVMs = books.Select(b => new BookVM
+            {
+                Id = b.Id,
+                Title = b.Title,
+                ImagePath = b.ImagePath,
+                AuthorFullName = b.BookAuthors.FirstOrDefault()?.Author.FullName ?? "نامشخص",
+            }).ToList();
+
+             viewModel = new BooksList_VM
+            {
+                Books = bookVMs,
+                Authors = new List<AuthorVM> // اگر لازم نیست حذفش کن
+                {
+                    new AuthorVM
+                    {
+                        FullName = author.FullName
+                    }
+                },
+                AuthorFilter = author.FullName,
+            };
+            return viewModel;
         }
 
 

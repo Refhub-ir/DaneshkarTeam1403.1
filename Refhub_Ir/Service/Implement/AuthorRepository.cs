@@ -3,6 +3,7 @@ using Refhub_Ir.Data.Context;
 using Refhub_Ir.Data.Models;
 using Refhub_Ir.Models;
 using Refhub_Ir.Service.Interface;
+using System.Threading;
 
 namespace Refhub_Ir.Service.Implement
 {
@@ -19,6 +20,16 @@ namespace Refhub_Ir.Service.Implement
         public async Task<List<Author>> GetAllAsync(CancellationToken ct)
         {
             return await _context.Authors.ToListAsync(ct);
+        }
+
+        public async Task<Author> GetAllAuthorsBooksAsync(string slug, CancellationToken ct)
+        {
+         return   await _context.Authors
+                .Include(a => a.BookAuthors)
+                .ThenInclude(ba => ba.Book)
+                .ThenInclude(b => b.BookAuthors)
+                .ThenInclude(ba => ba.Author)
+                .FirstOrDefaultAsync(a => a.Slug == slug, ct);
         }
 
         public async Task<Author> GetBySlugAsync(string slug, CancellationToken ct)

@@ -34,5 +34,14 @@ namespace Refhub_Ir.Controllers
             var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath, ct);
             return File(fileBytes, "application/octet-stream", Path.GetFileName(filePath));
         }
+
+        private readonly int _pageSize = 3;
+        [Route("/books")]
+        public async Task<IActionResult> List(string searchText, string authorFilter, string categoryFilter, int page = 1, CancellationToken cancellationToken = default)
+        {
+            var viewModel = await bookService.GetListAsync(searchText, authorFilter, categoryFilter, _pageSize, page, cancellationToken);
+
+            return View(viewModel);
+        }
     }
 }

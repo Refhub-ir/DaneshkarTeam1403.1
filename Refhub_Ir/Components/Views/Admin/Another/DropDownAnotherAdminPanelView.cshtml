@@ -9,7 +9,7 @@
 		@foreach (var item in Model)
 		{
 			var status = item.IsSelected ? "selected" : "";
-			<option @status value="@item.Id"> @item.Name</option>
+			<option @status value="@item.Id"> @item.CategoryName</option>
 		}
 
 
