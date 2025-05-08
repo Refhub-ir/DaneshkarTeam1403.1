@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Refhub_Ir.Data.Context;
 using Refhub_Ir.Models.Books;
+using Refhub_Ir.Models.DTO;
 using Refhub_Ir.Service.Interface;
 using Refhub_Ir.Tools.Static;
 
@@ -195,7 +196,7 @@ namespace Refhub_Ir.Service.Implement
             return false;
         }
 
-        public async Task<BookDetails> GetBookDetailsBySlugAsync(string slug, CancellationToken ct)
+        public async Task<BookDetailsVM> GetBookDetailsBySlugAsync(string slug, CancellationToken ct)
         {
             var book = await context.Books
                 .Include(b => b.BookAuthors).ThenInclude(ba => ba.Author)
@@ -205,16 +206,54 @@ namespace Refhub_Ir.Service.Implement
 
             if (book == null) return null;
 
-            return new BookDetails
+            return new BookDetailsVM
             {
                 Title = book.Title,
                 Slug = book.Slug,
                 FilePath = book.FilePath,
                 ImagePath = book.ImagePath,
-                BookAuthors = book.BookAuthors,
-                BookKeywords = book.BookKeywords,
-                RelatedTo = book.RelatedTo,
-                RelatedFrom = book.RelatedFrom
+                BookAuthors = book.BookAuthors.Select(ba => new BookAuthorDTO
+                {
+                    BookId = ba.BookId,
+                    AuthorId = ba.AuthorId,
+                    Author = new AuthorDTO
+                    {
+                        Id = ba.Author.Id,
+                        FullName = ba.Author.FullName
+                    }
+                }).ToList(),
+                BookKeywords = book.BookKeywords.Select(bk => new BookKeywordDTO
+                {
+                    BookId = bk.BookId,
+                    KeywordId = bk.KeywordId,
+                    Keyword = new KeywordDTO
+                    {
+                        Id = bk.Keyword.Id,
+                        Word = bk.Keyword.Word
+                    }
+                }).ToList(),
+                RelatedTo = book.RelatedTo.Select(r => new BookRelationDTO
+                {
+                    BookId = r.BookId,
+                    RelatedBookId = r.RelatedBookId,
+                    RelatedBook = new BookDTO
+                    {
+                        Id = r.RelatedBook.Id,
+                        Title = r.RelatedBook.Title,
+                        Slug = r.RelatedBook.Slug
+                    }
+                }).ToList(),
+                RelatedFrom = book.RelatedFrom.Select(r => new BookRelationDTO
+                {
+                    BookId = r.BookId,
+                    RelatedBookId = r.RelatedBookId,
+                    RelatedBook = new BookDTO
+                    {
+                        Id = r.RelatedBook.Id,
+                        Title = r.RelatedBook.Title,
+                        Slug = r.RelatedBook.Slug
+                    }
+                }).ToList()
             };
         }
     }

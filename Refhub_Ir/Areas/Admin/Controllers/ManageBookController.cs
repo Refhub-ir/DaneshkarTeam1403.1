@@ -12,22 +12,7 @@ namespace Refhub_Ir.Areas.Admin.Controllers
             var books = await bookService.GetBooksAsync(searchtext, ct);
             return View(books);
         }
-        [HttpGet("BookDetails/{slug}")]
-        public async Task<IActionResult> Details(string slug, CancellationToken ct)
-        {
 
-            if (string.IsNullOrEmpty(slug))
-            {
-                return BadRequest("Slug is required.");
-            }
-
-            var bookDetails = await bookService.GetBookDetailsBySlugAsync(slug, ct);
-
-            if (bookDetails == null)
-                return NotFound();
-
-            return View(bookDetails);
-        }
         [HttpGet]
         public IActionResult Create() => View();
         [HttpPost, ValidateAntiForgeryToken]
