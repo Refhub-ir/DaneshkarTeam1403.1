@@ -8,9 +8,9 @@ namespace Refhub_Ir.Models.Books
         public string Slug { get; set; }
         public string FilePath { get; set; }
         public string ImagePath { get; set; }
-        public List<BookKeywordDTO> BookKeywords { get; set; } = new();
-        public List<BookAuthorDTO> BookAuthors { get; set; } = new();
-        public List<BookRelationDTO> RelatedTo { get; set; } = new();
-        public List<BookRelationDTO> RelatedFrom { get; set; } = new();
+        public List<BookKeywordVM> BookKeywords { get; set; } = new();
+        public List<BookAuthorVM> BookAuthors { get; set; } = new();
+        public List<BookRelationVM> RelatedTo { get; set; } = new();
+        public List<BookRelationVM> RelatedFrom { get; set; } = new();
     }
 }

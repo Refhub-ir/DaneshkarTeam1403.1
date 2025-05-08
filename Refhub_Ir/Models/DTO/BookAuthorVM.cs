@@ -1,6 +1,6 @@
 ﻿namespace Refhub_Ir.Models.DTO
 {
-    public class BookAuthorDTO
+    public class BookAuthorVM
     {
         public int BookId { get; set; }
         public int AuthorId { get; set; }

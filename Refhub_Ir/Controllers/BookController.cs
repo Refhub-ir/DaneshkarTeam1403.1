@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Refhub_Ir.Service.Implement;
 using Refhub_Ir.Service.Interface;
 
@@ -22,13 +23,14 @@ namespace Refhub_Ir.Controllers
 
             return View(bookDetails);
         }
-        private readonly int _pageSize = 3;
-        public async Task<IActionResult> Index(string searchText, string authorFilter, string categoryFilter, int page = 1, CancellationToken cancellationToken = default)
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> DownloadFile(string filePath, CancellationToken ct)
         {
-            var viewModel = await bookService.GetListAsync(searchText, authorFilter, categoryFilter,_pageSize, page,cancellationToken);
-
-            return View(viewModel);
+            if (string.IsNullOrEmpty(filePath) || !System.IO.File.Exists(filePath))
+                return NotFound();
+            var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath, ct);
+            return File(fileBytes, "application/octet-stream", Path.GetFileName(filePath));
         }
-
     }
 }

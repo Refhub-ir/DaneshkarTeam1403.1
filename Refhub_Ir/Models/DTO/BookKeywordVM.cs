@@ -1,6 +1,6 @@
 ﻿namespace Refhub_Ir.Models.DTO
 {
-    public class BookKeywordDTO
+    public class BookKeywordVM
     {
         public int BookId { get; set; }
         public int KeywordId { get; set; }
