@@ -1,0 +1,158 @@
+﻿@using Refhub_Ir.Tools.ExtentionMethod
+@model Refhub_Ir.Models.Books.BookDetailsVM
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = Model.Title ?? "جزئیات کتاب";
+}
+
+<section class="pt-3 pt-xl-5">
+    <div class="container" data-sticky-container>
+        <div class="row g-4">
+            <!-- Main content START -->
+            <div class="col-xl-8">
+                <div class="card border rounded-3">
+                    <!-- Card header -->
+                    <div class="card-header border-bottom">
+                        <h3 class="mb-0 fs-5">@(Model.Title ?? "بدون عنوان")</h3>
+                    </div>
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <!-- نمایش تصویر کتاب -->
+                        @if (!string.IsNullOrEmpty(Model.ImagePath))
+                        {
+                            <div class="mb-4">
+                                <img src="@Url.Content(Model.ImagePath.ConvertForBookPathImage())" alt="@(Model.Title ?? "کتاب")" class="img-fluid rounded" style="max-width: 300px; max-height: 400px;" />
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-warning mb-4">تصویر کتاب در دسترس نیست.</p>
+                        }
+
+                        @if (Model.BookAuthorsVM != null && Model.BookAuthorsVM.Any())
+                        {
+                            <p><strong>نویسنده:</strong> @string.Join(", ", Model.BookAuthorsVM.Select(a => a.Author?.FullName ?? "ناشناس"))</p>
+                        }
+                        else
+                        {
+                            <p><strong>نویسنده:</strong> بدون نویسنده</p>
+                        }
+                        @if (Model.BookKeywordsVM != null && Model.BookKeywordsVM.Any())
+                        {
+                            <p><strong>کلیدواژه‌ها:</strong> @string.Join(", ", Model.BookKeywordsVM.Select(k => k.Keyword?.Word ?? "بدون کلیدواژه"))</p>
+                        }
+                        else
+                        {
+                            <p><strong>کلیدواژه‌ها:</strong> بدون کلیدواژه</p>
+                        }
+                        <p><strong>کتاب‌های مرتبط:</strong></p>
+                        <ul>
+                            @if (Model.RelatedToVM != null && Model.RelatedToVM.Any())
+                            {
+                                foreach (var relatedBook in Model.RelatedToVM)
+                                {
+                                    <li>
+                                        <a asp-controller="Book" asp-action="Details" asp-route-slug="@relatedBook.RelatedBook?.Slug">
+                                            @(relatedBook.RelatedBook?.Title ?? "بدون عنوان")
+                                        </a>
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                <li>بدون کتاب مرتبط</li>
+                            }
+                        </ul>
+
+                        <hr />
+
+                        <!-- دانلود فایل‌ها -->
+                        <h4 class="mb-3">دانلود فایل‌ها</h4>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (!string.IsNullOrEmpty(Model.FilePath))
+                            {
+                                <div class="mb-3">
+                                    <a href="@Url.Action("DownloadFile", "Book", new { filePath = Model.FilePath.ConvertForBookPathFile() })" class="btn btn-primary">دانلود فایل اصلی کتاب</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-warning mb-3">فایل اصلی کتاب در دسترس نیست.</p>
+                            }
+                            @if (Model.RelatedToVM != null && Model.RelatedToVM.Any())
+                            {
+                                <h5 class="mb-2">فایل‌های مرتبط:</h5>
+                                <ul>
+                                    @foreach (var relatedBook in Model.RelatedToVM)
+                                    {
+                                        @if (!string.IsNullOrEmpty(relatedBook.RelatedBook?.FilePath))
+                                        {
+                                            <li>
+                                                <a href="@Url.Action("DownloadFile", "Book", new { filePath = relatedBook.RelatedBook.FilePath })" class="btn btn-secondary mb-2">
+                                                    دانلود فایل: @(relatedBook.RelatedBook?.Title ?? "بدون عنوان")
+                                                </a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>@(relatedBook.RelatedBook?.Title ?? "بدون عنوان") (فایل در دسترس نیست)</li>
+                                        }
+                                    }
+                                </ul>
+                            }
+                        }
+                        else
+                        {
+                            <p class="text-danger">برای دانلود فایل‌ها، لطفاً <a asp-controller="Account" asp-action="Login">وارد شوید</a>.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- Main content END -->
+            <!-- Right sidebar START -->
+            <div class="col-xl-4">
+                <div data-sticky data-margin-top="80" data-sticky-for="768">
+                    <!-- Book info -->
+                    <div class="card card-body border p-4 mb-4">
+                        <h4 class="mb-3 fs-5">مشخصات کتاب</h4>
+                        <ul class="list-group list-group-borderless">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span class="h6 fw-light mb-0"><i class="fas fa-fw fa-book-open text-primary"></i>عنوان</span>
+                                <span>@(Model.Title ?? "بدون عنوان")</span>
+                            </li>
+                            @if (Model.BookAuthorsVM != null && Model.BookAuthorsVM.Any())
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span class="h6 fw-light mb-0"><i class="fas fa-fw fa-user text-primary"></i>نویسنده</span>
+                                    <span>@string.Join(", ", Model.BookAuthorsVM.Select(a => a.Author?.FullName ?? "ناشناس"))</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <!-- Tags -->
+                    <div class="card card-body border p-4">
+                        <h4 class="mb-3 fs-5">برچسب‌ها</h4>
+                        <ul class="list-inline mb-0">
+                            @if (Model.BookKeywordsVM != null && Model.BookKeywordsVM.Any())
+                            {
+                                foreach (var keyword in Model.BookKeywordsVM)
+                                {
+                                    <li class="list-inline-item">
+                                        <a class="btn btn-outline-light btn-sm" href="#">@(keyword.Keyword?.Word ?? "بدون کلیدواژه")</a>
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                <li class="list-inline-item">بدون برچسب</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Right sidebar END -->
+        </div>
+    </div>
+</section>

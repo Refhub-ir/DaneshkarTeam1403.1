@@ -8,11 +8,16 @@
         public string? Title { get; set; }
         public string? Slug { get; set; }
         //public int PageCount { get; set; }
+
+        public string FilePath { get; set; }
+   
+
         //public string FilePath { get; set; }
         public string? ImagePath { get; set; }
 
         public string? AuthorFullName { get; set; }
         public string? AuthorSlug { get; set; }
+
 
 
         // Foreign Key

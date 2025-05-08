@@ -16,5 +16,6 @@ namespace Refhub_Ir.Service.Interface
 
 
         Task<ListBooksVM> GetListAsync(string searchText, string authorFilter, string categoryFilter, int pageSize, int page, CancellationToken ct);
+        Task<BookDetailsVM> GetBookDetailsBySlugAsync(string slug, CancellationToken ct);
     }
 }
