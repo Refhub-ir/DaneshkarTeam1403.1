@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Refhub_Ir.Data.Context;
 using Refhub_Ir.Data.Models;
@@ -26,14 +26,25 @@ namespace Refhub_Ir
 
 
 
+        
 
             #region CustomExtentionMethod 
             builder.Services.AddCustomService();
             builder.Services.ConfigureContext(builder.Configuration);
             builder.Services.ConfigureCookie();
             builder.Services.ConfigureIdentity();
+            builder.Configuration
+                                .SetBasePath(Directory.GetCurrentDirectory())
+                                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                                .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+                                .AddEnvironmentVariables();
             #endregion
             var app = builder.Build();
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                db.Database.Migrate(); // این خط باعث اجرای مایگریشن‌ها می‌شه
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
